@@ -5,8 +5,8 @@ using UnityEngine.Events;
 
 public class LevelManagerScript : MonoBehaviour
 {
-    [SerializeField] 
-    LevelObject thisLevel;
+    [SerializeField]
+    public LevelObject thisLevel;
 
     PlayerCamera cameraScript;
     PlayerControllerScript playerScript;
@@ -14,13 +14,16 @@ public class LevelManagerScript : MonoBehaviour
     [HideInInspector]
     public bool loadedLevel;
 
+    public void CreateRoomSpecs()
+    {
+        CreateDoors();
+    }
 
     // Start is called before the first frame update
     void Start()
     {
         loadedLevel = false;
-        LoadIntoLevel();
-        loadedLevel = true;
+        loadedLevel = LoadIntoLevel();
     }
 
     // Update is called once per frame
@@ -29,14 +32,23 @@ public class LevelManagerScript : MonoBehaviour
         
     }
 
-    void LoadIntoLevel()
+    bool LoadIntoLevel()
     {
         cameraScript = GameObject.Find("Main Camera").GetComponent<PlayerCamera>();
+        if(cameraScript == null)
+        {
+            return false;
+        }
         playerScript = GameObject.Find("player").GetComponent<PlayerControllerScript>();
+        if(playerScript == null)
+        {
+            return false;
+        }
         playerScript.SetLevel(this);
-        CreateDoors();
+        
         SetCameraBounds();
         SetPosition();
+        return true;
     }
 
 
@@ -58,20 +70,18 @@ public class LevelManagerScript : MonoBehaviour
 
     void CreateDoors()
     {
-        for (int i = 0; i < thisLevel.doorways.Length; i++)
+        for (int i = 0; i < thisLevel.doorways.Count; i++)
         {
             thisLevel.doorways[i].emptyDoor = new GameObject();
 
             //Collision
             thisLevel.doorways[i].doorway = thisLevel.doorways[i].emptyDoor.AddComponent<BoxCollider2D>();
             thisLevel.doorways[i].doorway.isTrigger = true;
-            thisLevel.doorways[i].doorway.size = thisLevel.doorways[i].colliderSize;
 
             //Collision Box Size
 
             //Transform
             thisLevel.doorways[i].doorwayTransform = thisLevel.doorways[i].emptyDoor.transform;
-            thisLevel.doorways[i].doorwayTransform.position = thisLevel.doorways[i].position;
 
             thisLevel.doorways[i].doorwayTransform.parent = transform;
 
@@ -82,9 +92,13 @@ public class LevelManagerScript : MonoBehaviour
 
             //Connection 
             thisLevel.doorways[i].doorScript.SetRoomConnection(thisLevel.doorways[i].connection);
+            
             thisLevel.doorways[i].doorScript.SetCurrentRoom(thisLevel.thisScene);
+            thisLevel.doorways[i].doorScript.thisDoorSide = thisLevel.doorways[i].side;
+
 
             thisLevel.doorways[i].emptyDoor.name = thisLevel.thisScene + "_to_" + thisLevel.doorways[i].connection;
+            thisLevel.doorways[i].emptyDoor.tag = "Doorway";
 
         }
 
@@ -92,7 +106,7 @@ public class LevelManagerScript : MonoBehaviour
 
     void DestroyDoors()
     {
-        for (int i = 0; i < thisLevel.doorways.Length; i++)
+        for (int i = 0; i < thisLevel.doorways.Count; i++)
         {
             Destroy(thisLevel.doorways[i].emptyDoor);
         }

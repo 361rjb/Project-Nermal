@@ -6,10 +6,14 @@ using UnityEngine.Events;
 
 public class DoorwayScript : MonoBehaviour
 {
-    string connectedRoom;
-    string currentRoom;
+   [SerializeField] string connectedRoom;
+    [SerializeField] string currentRoom;
 
     PlayerControllerScript playerScript;
+
+    Vector2 newPlayerPosition = new Vector2();
+
+    public Door.side thisDoorSide;
 
     void Start()
     {
@@ -31,16 +35,18 @@ public class DoorwayScript : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            playerScript.LevelTransition();
             StartCoroutine(TransitionPause());
+            playerScript.LevelTransition();
         }
     }
 
 
-    IEnumerator TransitionPause()
+    IEnumerator TransitionPause( )
     {
         yield return new WaitForSeconds(0.5f);
         SceneManager.LoadScene(connectedRoom, LoadSceneMode.Additive);
         SceneManager.UnloadSceneAsync(currentRoom);
+        playerScript.SetPlayerPositionWithDoors(currentRoom, connectedRoom);
+        
     }
 }

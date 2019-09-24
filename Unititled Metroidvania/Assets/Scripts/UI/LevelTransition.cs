@@ -41,7 +41,7 @@ public class LevelTransition : MonoBehaviour
 
     IEnumerator changeColor()
     {
-        Debug.Log("Fade Start");
+
         playerScript.canControl = false;
         yield return new WaitUntil(() => playerScript.currentLevelScript.loadedLevel);
         yield return new WaitForSeconds(0.5f);
@@ -58,7 +58,7 @@ public class LevelTransition : MonoBehaviour
     public void FadeDone()
     {
 
-        Debug.Log("IS it Working");
+
         anim.ResetTrigger("Alpha");
         playerScript.canControl = true;
     }

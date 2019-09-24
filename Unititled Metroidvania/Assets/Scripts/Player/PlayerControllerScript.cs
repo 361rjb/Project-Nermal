@@ -10,6 +10,8 @@ public class PlayerControllerScript : MonoBehaviour
 
     Rigidbody2D thisRigidBody2D;
 
+    Animator thisAnimator;
+
     //Input Variables
     float xInput = 0.0f;
     float yInput = 0.0f;
@@ -83,6 +85,7 @@ public class PlayerControllerScript : MonoBehaviour
         thisRigidBody2D = thisGameObject.GetComponent<Rigidbody2D>();
         groundColliderCheck = groundCheck.GetComponent<Collider2D>();
         ceilingColliderCheck = ceilingCheck.GetComponent<Collider2D>();
+        thisAnimator = GetComponent<Animator>();
         levelTransScript = GameObject.Find("LevelTransition").GetComponent<LevelTransition>();
 
     }
@@ -93,15 +96,27 @@ public class PlayerControllerScript : MonoBehaviour
         if (!canControl)
         {
             Transition();
+            thisAnimator.SetBool("Transitioning", true);
+
+            thisAnimator.SetBool("Jump", false);
+            thisAnimator.SetBool("HoldJump", false);
+            thisAnimator.SetBool("Falling", true);
+            thisAnimator.SetBool("Attacking", false);
+            thisAnimator.SetBool("Dash", false);
         }
         else
         {
+            thisAnimator.SetBool("Transitioning", false);
             GetInput();
             GroundCheck();
             CeilingCheck();
             FastFall();
             Move();
             Jump();
+        }
+        if(thisRigidBody2D.velocity.magnitude > 40)
+        {
+            thisRigidBody2D.velocity = new Vector2(0, 0);
         }
     }
 
@@ -141,11 +156,11 @@ public class PlayerControllerScript : MonoBehaviour
 
     void GetInput()
     {
-        xInput = Input.GetAxis("Horizontal");
-        yInput = Input.GetAxis("Vertical");
-        slowWalkInput = Input.GetAxisRaw("SlowWalk");
+       // xInput = Input.GetAxis("Horizontal");
+        //yInput = Input.GetAxis("Vertical");
+       // slowWalkInput = Input.GetAxisRaw("SlowWalk");
         lastJumpInput = jumpInput;
-        jumpInput = Input.GetAxisRaw("Jump");
+       // jumpInput = Input.GetAxisRaw("Jump");
     }
 
     void Move()
@@ -156,16 +171,16 @@ public class PlayerControllerScript : MonoBehaviour
             {
                 if (fastFall)
                 {
-                    thisRigidBody2D.velocity = new Vector2(xInput * playerWalkSpeed, thisRigidBody2D.velocity.y + fastFallSpeed);
+                    //thisRigidBody2D.velocity = new Vector2(xInput * playerWalkSpeed, thisRigidBody2D.velocity.y + fastFallSpeed);
                 }
                 else
                 {
-                    thisRigidBody2D.velocity = new Vector2(xInput * playerWalkSpeed, thisRigidBody2D.velocity.y);
+                    //thisRigidBody2D.velocity = new Vector2(xInput * playerWalkSpeed, thisRigidBody2D.velocity.y);
                 }
             }
             else
             {
-                thisRigidBody2D.velocity = new Vector2(xInput * playerWalkSpeed * playerSlowWalkSpeed, thisRigidBody2D.velocity.y);
+                //thisRigidBody2D.velocity = new Vector2(xInput * playerWalkSpeed * playerSlowWalkSpeed, thisRigidBody2D.velocity.y);
             }
         }
         else
@@ -174,16 +189,16 @@ public class PlayerControllerScript : MonoBehaviour
             {
                 if (fastFall)
                 {
-                    thisRigidBody2D.velocity = new Vector2(xInput * playerAirSpeed, thisRigidBody2D.velocity.y + fastFallSpeed);
+                   // thisRigidBody2D.velocity = new Vector2(xInput * playerAirSpeed, thisRigidBody2D.velocity.y + fastFallSpeed);
                 }
                 else
                 {
-                    thisRigidBody2D.velocity = new Vector2(xInput * playerAirSpeed, thisRigidBody2D.velocity.y);
+                    //thisRigidBody2D.velocity = new Vector2(xInput * playerAirSpeed, thisRigidBody2D.velocity.y);
                 }
             }
             else
             {
-                thisRigidBody2D.velocity = new Vector2(xInput * playerAirSpeed * playerSlowWalkSpeed, thisRigidBody2D.velocity.y);
+               // thisRigidBody2D.velocity = new Vector2(xInput * playerAirSpeed * playerSlowWalkSpeed, thisRigidBody2D.velocity.y);
             }
         }
     }
@@ -201,7 +216,7 @@ public class PlayerControllerScript : MonoBehaviour
         {
             shortHopCounter = 0;
             jumpedY = thisTransform.position.y;
-            thisRigidBody2D.velocity = new Vector2(thisRigidBody2D.velocity.x, jumpInitialVelocity);
+            //thisRigidBody2D.velocity = new Vector2(thisRigidBody2D.velocity.x, jumpInitialVelocity);
             falling = false;
             shortHopCounter++;
         }
@@ -217,7 +232,7 @@ public class PlayerControllerScript : MonoBehaviour
                 shortHopCounter++;
                 if(shortHopCounter > shortHopFrameLength)
                 { 
-                    thisRigidBody2D.velocity = new Vector2(thisRigidBody2D.velocity.x, jumpHoldVelocity);
+                    //thisRigidBody2D.velocity = new Vector2(thisRigidBody2D.velocity.x, jumpHoldVelocity);
                 }
                 falling = false;
             }
@@ -235,7 +250,7 @@ public class PlayerControllerScript : MonoBehaviour
         }
         else
         {
-
+            //?????
         }
     }
 
@@ -247,6 +262,57 @@ public class PlayerControllerScript : MonoBehaviour
     public void LevelTransition()
     {
         levelTransScript.Transition();
+
+    }
+
+    public void SetPlayerPositionWithDoors(string currentDoor, string conenctedDoor)
+    {
+        StartCoroutine(WaitForLevelLoad(currentDoor,  conenctedDoor));
+    }
+
+    IEnumerator WaitForLevelLoad(string currentDoor, string conenctedDoor)
+    {
+        yield return new WaitForSecondsRealtime(0.1f);
+        GameObject[] doorways = GameObject.FindGameObjectsWithTag("Doorway");
+
+        foreach (GameObject door in doorways)
+        {
+
+            if (door.name == conenctedDoor + "_to_" + currentDoor)
+            {
+                Door.side testSide = door.GetComponent<DoorwayScript>().thisDoorSide;
+
+                switch(testSide)
+                {
+                    case Door.side.UP:
+                        transform.position = door.transform.position - (Vector3.up*2);
+                        break;
+
+                    case Door.side.DOWN:
+                        transform.position = door.transform.position + (Vector3.up*2);
+                        break;
+
+                    case Door.side.RIGHT:
+                        transform.position = door.transform.position - (Vector3.right*2);
+                        break;
+
+                    case Door.side.LEFT:
+                        transform.position = door.transform.position + (Vector3.right*2);
+                        break;
+
+                    default:
+                        break;
+                }
+
+                
+                Physics2D.IgnoreCollision(door.GetComponent<Collider2D>(), GetComponent<Collider2D>());
+                yield return new WaitForSecondsRealtime(1f);
+                Physics2D.IgnoreCollision(door.GetComponent<Collider2D>(), GetComponent<Collider2D>(), false);
+                
+
+                break;
+            }
+        }
     }
 
 }

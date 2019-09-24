@@ -8,7 +8,7 @@ public class LevelObject : ScriptableObject
 {
     public string thisScene; //Use Object instead???
     [Space]
-    public SceneConnector[] doorways;
+    public List<SceneConnector> doorways;
 
     [Header("Camera Bounds")]
     public float minX;
@@ -20,23 +20,30 @@ public class LevelObject : ScriptableObject
     [Header("Level Offsets")]    
     public float xOffset;
     public float yOffset;
-    
-   
 
-    
+    [HideInInspector]
+    public float worldEditorX;
+    [HideInInspector]
+    public float worldEditorY;
+
+    [Space]
+    [Header("Player Must interact to traverse")]
+    public bool isInteractable = false;
+
 }
 
 
 
 [System.Serializable]
-public struct SceneConnector
+public class SceneConnector
 {
     [HideInInspector]
     public GameObject emptyDoor;
 
-    public Vector2 position;
-
     public string connection;
+
+    public Door.side side;
+    public Door.side otherConnectionSide;
 
     [HideInInspector]
     public BoxCollider2D doorway;
@@ -46,6 +53,5 @@ public struct SceneConnector
 
     [HideInInspector]
     public DoorwayScript doorScript;
-
-    public Vector2 colliderSize;
+    
 }

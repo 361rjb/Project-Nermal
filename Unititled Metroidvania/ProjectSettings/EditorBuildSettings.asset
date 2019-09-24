@@ -6,12 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/TestRooms/TestRoom.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
-  - enabled: 1
-    path: Assets/Scenes/TestRooms/TestRoom2.unity
-    guid: b301d81cd83c8174085255ac5295a6e1
-  - enabled: 1
     path: Assets/Scenes/Universal Scenes/GameManager.unity
     guid: 610527e5a56f5b341841d318b7225f16
   - enabled: 1
@@ -23,4 +17,22 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Universal Scenes/PlayerAssetScene.unity
     guid: 894c7228e2ab4df448b6deb1a3a7e48e
+  - enabled: 0
+    path: Assets/Levels/Level Scenes/TestRoom1.unity
+    guid: f454e9329c47dfe4caab1fa60a2f6f01
+  - enabled: 0
+    path: Assets/Levels/Level Scenes/TestRoom2.unity
+    guid: 4c4b75f984ea2034caeb5495f12294d4
+  - enabled: 1
+    path: Assets/Scenes/TestRooms/Test1.unity
+    guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/TestRooms/TestRoom2.unity
+    guid: b301d81cd83c8174085255ac5295a6e1
+  - enabled: 1
+    path: Assets/Levels/Level Scenes/test2.unity
+    guid: f3c27cfc62ae64b4ca25a98b77f4f336
+  - enabled: 1
+    path: Assets/Levels/Level Scenes/TestRoom.unity
+    guid: 55200574aeb0c9c4e8d13f2a6b9499b1
   m_configObjects: {}

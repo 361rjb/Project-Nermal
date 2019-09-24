@@ -10,20 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f9cb94a3a06b46347aab758b5d5d636c, type: 3}
-  m_Name: TestRoom 2
+  m_Name: test2
   m_EditorClassIdentifier: 
-  thisScene: TestRoom2
+  thisScene: test2
   doorways:
   - emptyDoor: {fileID: 0}
-    position: {x: -9, y: 3}
     connection: TestRoom
+    side: 0
+    otherConnectionSide: 1
     doorway: {fileID: 0}
     doorwayTransform: {fileID: 0}
     doorScript: {fileID: 0}
-    colliderSize: {x: 1, y: 9}
-  minX: 0
-  maxX: 15
-  minY: -1
-  maxY: 2
-  xOffset: 15
+  minX: -3
+  maxX: 3
+  minY: 1
+  maxY: 3
+  xOffset: 0
   yOffset: 0
+  worldEditorX: 135
+  worldEditorY: 52
+  isInteractable: 0

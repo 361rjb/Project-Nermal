@@ -15,15 +15,18 @@ MonoBehaviour:
   thisScene: TestRoom
   doorways:
   - emptyDoor: {fileID: 0}
-    position: {x: 9.5, y: 3}
-    connection: TestRoom2
+    connection: test2
+    side: 1
+    otherConnectionSide: 0
     doorway: {fileID: 0}
     doorwayTransform: {fileID: 0}
     doorScript: {fileID: 0}
-    colliderSize: {x: 1, y: 9}
-  minX: -10
-  maxX: 10
+  minX: -15
+  maxX: 5
   minY: -1
-  maxY: 2
+  maxY: 15
   xOffset: 0
   yOffset: 0
+  worldEditorX: 56
+  worldEditorY: 53
+  isInteractable: 0
