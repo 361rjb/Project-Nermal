@@ -89,6 +89,7 @@ public class PlayerControllerScript : MonoBehaviour
     {
         thisTransform = transform;
         thisGameObject = gameObject;
+        transform.position = GameManagerScript.Instance.playerStartPos;
         thisRigidBody2D = thisGameObject.GetComponent<Rigidbody2D>();
         groundColliderCheck = groundCheck.GetComponent<Collider2D>();
         ceilingColliderCheck = ceilingCheck.GetComponent<Collider2D>();

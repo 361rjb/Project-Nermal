@@ -71,5 +71,15 @@ public class PauseMenuInputScript : MonoBehaviour
         pauseInput = Input.GetAxisRaw("Pause");
     }
 
+    public void OptionsButton()
+    {
+        Debug.Log("Show Options");
+    }
+
+    public void ExitGame()
+    {
+        Debug.Log("Exiting");
+    }
+
 
 }

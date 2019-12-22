@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManagerScript : MonoBehaviour
 {
+    public static GameManagerScript Instance;
     [SerializeField]
     string playerScene;
 
@@ -14,9 +15,15 @@ public class GameManagerScript : MonoBehaviour
     [SerializeField]
     string testPauseUI;
 
+    public Vector2 playerStartPos;
+
     // Start is called before the first frame update
     void Start()
     {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
         //Temporary Load Scene
         TestingLoad();
     }
@@ -27,11 +34,25 @@ public class GameManagerScript : MonoBehaviour
         
     }
 
+
+
     void TestingLoad()
     {
         SceneManager.LoadScene(testPauseUI, LoadSceneMode.Additive);
         SceneManager.LoadScene(playerScene, LoadSceneMode.Additive);
-        SceneManager.LoadScene(testLoadScene, LoadSceneMode.Additive);
+       PlayerSave thisSave = SaveLoadHandler.LoadGame();
+        if (thisSave == null)
+        {
+            Debug.Log("Room Not or First Save");
+            SceneManager.LoadScene(testLoadScene, LoadSceneMode.Additive); 
+        }
+        else
+        {
+            Debug.Log("Loading at room " + thisSave.lastSavePoint.roomName);
+
+            SceneManager.LoadScene(thisSave.lastSavePoint.roomName, LoadSceneMode.Additive);
+            playerStartPos = thisSave.lastSavePoint.location;
+        }
 
     }
 

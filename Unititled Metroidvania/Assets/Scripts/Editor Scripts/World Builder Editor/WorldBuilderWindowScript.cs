@@ -658,13 +658,26 @@ public class WorldBuilderWindowScript : EditorWindow
             if (GUILayout.Button("<color=#0000ff>Load Room As Scene</color>", buttonStyle))
             {
                 LoadRoomScene();
+            
             }
+            
+            //Load Asset to side
+            if (GUILayout.Button("<color=#0000ff>Show Scriptable object</color>", buttonStyle))
+            {
+                Selection.activeObject = AssetDatabase.LoadAssetAtPath<Object>("Assets/Levels/Level Objects/" + selectedRoom.name + ".asset");
+                
+
+            }
+
+
             //End Scroll Area
             GUILayout.EndScrollView();
 
         }
 
     }
+
+    
 
     //Save all Rooms 
     void SaveRoomLayouts()
