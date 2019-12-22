@@ -32,5 +32,6 @@ public class PlayerAttackHitBoxScript : MonoBehaviour
             thisSprite.color = hitEnemy;
         }
     }
+    
 
 }

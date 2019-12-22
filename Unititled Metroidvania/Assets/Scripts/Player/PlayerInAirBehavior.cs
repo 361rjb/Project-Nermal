@@ -17,6 +17,16 @@ public class PlayerInAirBehavior : LogicalStateMachineBehaviour
     Collider2D groundColliderCheck;
 
     [SerializeField]
+    GameObject wallLeftCheck;
+    Collider2D wallLeftColliderCheck;
+    [SerializeField]
+    GameObject wallRightCheck;
+    Collider2D wallRightColliderCheck;
+
+    bool leftWall = false;
+    bool rightWall = false;
+
+    [SerializeField]
     LayerMask groundLayer;
 
 
@@ -35,6 +45,11 @@ public class PlayerInAirBehavior : LogicalStateMachineBehaviour
         ceilingCheck = GameObject.Find("CeilingCheck");
         groundColliderCheck = groundCheck.GetComponent<Collider2D>();
         ceilingColliderCheck = ceilingCheck.GetComponent<Collider2D>();
+
+        wallLeftCheck = GameObject.Find("WallCheckLeft");
+        wallRightCheck = GameObject.Find("WallCheckRight");
+        wallLeftColliderCheck = wallLeftCheck.GetComponent<Collider2D>();
+        wallRightColliderCheck = wallRightCheck.GetComponent<Collider2D>();
     }
 
     // OnStateUpdate is called before OnStateUpdate is called on any state inside this state machine
@@ -42,6 +57,7 @@ public class PlayerInAirBehavior : LogicalStateMachineBehaviour
     {
         GroundCheck();
         CeilingCheck();
+        WallCheck();
 
         airVelocity = thisRigidBody2D.velocity;
         airVelocity.x *= playerAirSpeed;
@@ -93,6 +109,31 @@ public class PlayerInAirBehavior : LogicalStateMachineBehaviour
         }
     }
 
+
+    void WallCheck()
+    {
+        Debug.Log("Wall Check");
+        if (wallLeftColliderCheck.IsTouchingLayers(groundLayer) && this.Animator.GetFloat("HorizontalInput") < -0.1f)
+        {
+            this.Animator.SetBool("LeftWallTouching", true);
+            
+        }
+        else
+        {
+            this.Animator.SetBool("LeftWallTouching", false);
+        }
+
+        if (wallRightColliderCheck.IsTouchingLayers(groundLayer) && this.Animator.GetFloat("HorizontalInput") > 0.1f)
+        {
+            this.Animator.SetBool("RightWallTouching", true);
+            
+        }
+        else
+        {
+            this.Animator.SetBool("RightWallTouching", false);
+            
+        }
+    }
     // OnStateExit is called before OnStateExit is called on any state inside this state machine
     //override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     //{

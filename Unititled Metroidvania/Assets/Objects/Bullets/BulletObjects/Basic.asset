@@ -23,7 +23,7 @@ MonoBehaviour:
   - position: {x: 0.99999845, y: 0}
     slowRadius: 0.2
     slowSpeed: 2
-    targetRadius: 0.01
+    targetRadius: 0.1
     speed: 5
   - position: {x: 15.344444, y: -10.1}
     slowRadius: 0.43

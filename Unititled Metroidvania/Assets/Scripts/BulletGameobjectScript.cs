@@ -8,6 +8,7 @@ public class BulletGameobjectScript : MonoBehaviour
     
     public BulletObject thisBulletComponent;
 
+    [SerializeField]
     int currentIndex;
 
     SpriteRenderer thisSpriteRenderer;
@@ -133,7 +134,7 @@ public class BulletGameobjectScript : MonoBehaviour
                     if (currentIndex == 0)
                     {
                         rotatePathAroundPoint = position;
-                        Debug.Log("new Postigion: " + position);
+                        //Debug.Log("new Postigion: " + position);
                     }
                     target = (thisBulletComponent.bulletPath[currentIndex].position);
 

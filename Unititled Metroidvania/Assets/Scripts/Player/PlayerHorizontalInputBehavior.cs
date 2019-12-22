@@ -20,6 +20,7 @@ public class PlayerHorizontalInputBehavior : LogicalStateMachineBehaviour
     float dashInput = 0.0f;
     float lastDashInput = 0.0f;
 
+
     [SerializeField]
     float attackCooldown;
     float attackCooldownCounter = 0;
@@ -53,11 +54,16 @@ public class PlayerHorizontalInputBehavior : LogicalStateMachineBehaviour
     [SerializeField]
     float jumpHeightLimit;
 
+    [SerializeField]
+    float wallHorizontalVelocity = 3;
+
     float jumpedY = 0;
 
     float downVelocityInit;
 
     SpriteRenderer thisSpriteRender;
+
+    PlayerControllerScript controllerScript;
 
     // OnStateEnter is called before OnStateEnter is called on any state inside this state machine
     protected override void OnStateEntered()
@@ -65,6 +71,7 @@ public class PlayerHorizontalInputBehavior : LogicalStateMachineBehaviour
         thisSpriteRender = this.Animator.GetComponent<SpriteRenderer>();
         thisRigidBody2D = this.Animator.gameObject.GetComponent<Rigidbody2D>();
         thisTransform = this.Animator.transform;
+        controllerScript = this.Animator.gameObject.GetComponent<PlayerControllerScript>();
     }
 
     // OnStateUpdate is called before OnStateUpdate is called on any state inside this state machine
@@ -92,6 +99,9 @@ public class PlayerHorizontalInputBehavior : LogicalStateMachineBehaviour
 
             return;
         }
+        if (controllerScript.pausedGame)
+        { return; }
+
         xInput = Input.GetAxis("Horizontal");
         yInput = Input.GetAxis("Vertical");
         this.Animator.SetFloat("HorizontalInput", xInput);
@@ -103,7 +113,8 @@ public class PlayerHorizontalInputBehavior : LogicalStateMachineBehaviour
         lastDashInput = dashInput;
         dashInput = Input.GetAxisRaw("Dash");
 
-        if(attackInput != 0.0f && lastAttackInput != 1.0f && !attackCoolingDown)
+
+        if (attackInput != 0.0f && lastAttackInput != 1.0f && !attackCoolingDown)
         {
             this.Animator.SetBool("Attacking", true);
             attackCoolingDown = true;
@@ -114,7 +125,6 @@ public class PlayerHorizontalInputBehavior : LogicalStateMachineBehaviour
             this.Animator.SetBool("Dash", true);
             dashCoolingDown= true;
            
-            Debug.Log("Dash");
         }
 
         
@@ -173,10 +183,23 @@ public class PlayerHorizontalInputBehavior : LogicalStateMachineBehaviour
             this.Animator.SetBool("Falling", true);
         }
 
-        if (jumpInput != 0.0f && lastJumpInput != 1.0f && !this.Animator.GetBool("InAir"))
+        if (jumpInput != 0.0f && lastJumpInput != 1.0f && (!this.Animator.GetBool("InAir") || this.Animator.GetBool("RightWallTouching") || this.Animator.GetBool("LeftWallTouching")))
         {
             this.Animator.SetBool("Jump", true);
-            thisRigidBody2D.velocity = new Vector2(thisRigidBody2D.velocity.x, jumpInitialVelocity);
+            float jumpDirection = 0;
+
+            if(this.Animator.GetBool("RightWallTouching"))
+            {
+                jumpDirection = -wallHorizontalVelocity;
+            }
+            else if(this.Animator.GetBool("LeftWallTouching"))
+            {
+
+                jumpDirection = wallHorizontalVelocity;
+            }
+
+
+            thisRigidBody2D.velocity = new Vector2(thisRigidBody2D.velocity.x+jumpDirection, jumpInitialVelocity);
             jumpedY = thisTransform.position.y;
             this.Animator.SetBool("Falling", false);
 

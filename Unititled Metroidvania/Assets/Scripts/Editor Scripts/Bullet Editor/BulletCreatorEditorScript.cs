@@ -198,11 +198,11 @@ public class BulletCreatorEditorScript : EditorWindow
 
                     //Slider for Target Radius
                     GUILayout.Label("<color=#000000>\n Target Radius</color>", leftStyle);
-                    waypointList[currentSelectedWaypoint].targetRadius = EditorGUILayout.Slider(waypointList[currentSelectedWaypoint].targetRadius, 0.01f, 1f);
+                    waypointList[currentSelectedWaypoint].targetRadius = EditorGUILayout.Slider(waypointList[currentSelectedWaypoint].targetRadius, 0.1f, 1f);
 
                     //Slider for Slow Radius
                     GUILayout.Label("<color=#000000>\n Slow Radius</color>", leftStyle);
-                    waypointList[currentSelectedWaypoint].slowRadius = EditorGUILayout.Slider(waypointList[currentSelectedWaypoint].slowRadius, 0.01f, 3f);
+                    waypointList[currentSelectedWaypoint].slowRadius = EditorGUILayout.Slider(waypointList[currentSelectedWaypoint].slowRadius, 0.1f, 3f);
 
                     //Slider for Speed
                     GUILayout.Label("<color=#000000>\n Speed</color>", leftStyle);

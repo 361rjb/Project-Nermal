@@ -12,13 +12,20 @@ public class PlayerControllerScript : MonoBehaviour
 
     Animator thisAnimator;
 
+    public GameObject yInteract;
+
     //Input Variables
     float xInput = 0.0f;
     float yInput = 0.0f;
     float jumpInput = 0.0f;
     float lastJumpInput = 0.0f;
     float slowWalkInput = 0.0f;
-    
+
+    public bool pausedGame = false;
+
+
+    public float interactInput = 0.0f;
+    float lastInteractInput = 0.0f;
 
     //Game Checks
     bool isGrounded = false;
@@ -87,6 +94,7 @@ public class PlayerControllerScript : MonoBehaviour
         ceilingColliderCheck = ceilingCheck.GetComponent<Collider2D>();
         thisAnimator = GetComponent<Animator>();
         levelTransScript = GameObject.Find("LevelTransition").GetComponent<LevelTransition>();
+        yInteract.SetActive(false);
 
     }
 
@@ -110,9 +118,6 @@ public class PlayerControllerScript : MonoBehaviour
             GetInput();
             GroundCheck();
             CeilingCheck();
-            FastFall();
-            Move();
-            Jump();
         }
         if(thisRigidBody2D.velocity.magnitude > 40)
         {
@@ -154,105 +159,24 @@ public class PlayerControllerScript : MonoBehaviour
         }
     }
 
+    
     void GetInput()
     {
+        if(pausedGame)
+        { return; }
        // xInput = Input.GetAxis("Horizontal");
         //yInput = Input.GetAxis("Vertical");
        // slowWalkInput = Input.GetAxisRaw("SlowWalk");
         lastJumpInput = jumpInput;
-       // jumpInput = Input.GetAxisRaw("Jump");
-    }
+        // jumpInput = Input.GetAxisRaw("Jump");
 
-    void Move()
-    {
-        if (isGrounded)
-        {
-            if (slowWalkInput != 1.0f)
-            {
-                if (fastFall)
-                {
-                    //thisRigidBody2D.velocity = new Vector2(xInput * playerWalkSpeed, thisRigidBody2D.velocity.y + fastFallSpeed);
-                }
-                else
-                {
-                    //thisRigidBody2D.velocity = new Vector2(xInput * playerWalkSpeed, thisRigidBody2D.velocity.y);
-                }
-            }
-            else
-            {
-                //thisRigidBody2D.velocity = new Vector2(xInput * playerWalkSpeed * playerSlowWalkSpeed, thisRigidBody2D.velocity.y);
-            }
-        }
-        else
-        {
-            if (slowWalkInput != 1.0f)
-            {
-                if (fastFall)
-                {
-                   // thisRigidBody2D.velocity = new Vector2(xInput * playerAirSpeed, thisRigidBody2D.velocity.y + fastFallSpeed);
-                }
-                else
-                {
-                    //thisRigidBody2D.velocity = new Vector2(xInput * playerAirSpeed, thisRigidBody2D.velocity.y);
-                }
-            }
-            else
-            {
-               // thisRigidBody2D.velocity = new Vector2(xInput * playerAirSpeed * playerSlowWalkSpeed, thisRigidBody2D.velocity.y);
-            }
-        }
+
+        lastInteractInput = interactInput;
+        interactInput = Input.GetAxisRaw("Interact");
     }
 
 
-    void Jump()
-    {
-
-        if (lastJumpInput != 1.0)
-        {
-            falling = true;
-        }
-
-        if (isGrounded && jumpInput != 0.0f && !falling)
-        {
-            shortHopCounter = 0;
-            jumpedY = thisTransform.position.y;
-            //thisRigidBody2D.velocity = new Vector2(thisRigidBody2D.velocity.x, jumpInitialVelocity);
-            falling = false;
-            shortHopCounter++;
-        }
-        else if (!isGrounded && lastJumpInput != 0.0f && !falling)
-        {
-            if (thisTransform.position.y - jumpedY >= jumpHeightLimit || touchedCeil)
-            {
-                falling = true;
-                
-            }
-            else
-            {
-                shortHopCounter++;
-                if(shortHopCounter > shortHopFrameLength)
-                { 
-                    //thisRigidBody2D.velocity = new Vector2(thisRigidBody2D.velocity.x, jumpHoldVelocity);
-                }
-                falling = false;
-            }
-            
-        }
-
-    }
-
-    void FastFall()
-    {
-
-        if(yInput < -0.1f && !isGrounded && jumpInput != 0.0f && lastJumpInput != 1.0f)
-        {
-            fastFall = true;
-        }
-        else
-        {
-            //?????
-        }
-    }
+   
 
    public void SetLevel(LevelManagerScript lv)
     {

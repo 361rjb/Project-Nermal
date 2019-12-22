@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: TestSpawner
   m_EditorClassIdentifier: 
   bulletSpawners:
-  - position: {x: -5, y: 4, z: 0}
+  - position: {x: 0, y: 0, z: 0}
     isPositionChildOfOwner: 1
-    bulletType: {fileID: 11400000, guid: 61fe4f996cec46f4cac6d5e7e6bb8962, type: 2}
+    bulletType: {fileID: 11400000, guid: 921ffc625977a4045a0852ca947c6625, type: 2}
     bulletCount: 10
-    nextBullet: 8
+    nextBullet: 0
     individualTotalAngles: 1
     individualSpreadAngle: 90
     totalSpreads: 1
@@ -30,52 +30,19 @@ MonoBehaviour:
     spinReverse: 0
     reversing: 0
     maxSpinSpeed: 10
-    currentRotation: 390
+    currentRotation: 740
     currentSpinSpeed: 10
     rotateOnBurst: 0
     fireRate: 0.5
     currentfireRate: 0
     fireRateAcceleration: 0
     maxFireRate: 0
-    fireRateCount: 0.02
+    fireRateCount: 0.06
     burstRate: 0
-    burstRateCount: 20.320274
+    burstRateCount: 38.56069
     burstStop: 0
-    burstStopCount: 39
+    burstStopCount: 74
     burstReturnAngle: 0
     lifeTime: 0
     angle: 0
-    lockOn: 1
-  - position: {x: -1, y: 4, z: 0}
-    isPositionChildOfOwner: 1
-    bulletType: {fileID: 11400000, guid: 70ae7b878bb976449b778c4b25f9903c, type: 2}
-    bulletCount: 10
-    nextBullet: 7
-    individualTotalAngles: 1
-    individualSpreadAngle: 90
-    totalSpreads: 1
-    totalBulletSpread: 90
-    isRandomSpreads: 0
-    randomMinAngle: 0
-    randomMaxAngle: 0
-    spinSpeed: 10
-    spinSpeedChangeRate: 0
-    spinReverse: 0
-    reversing: 0
-    maxSpinSpeed: 10
-    currentRotation: 580
-    currentSpinSpeed: 10
-    rotateOnBurst: 0
-    fireRate: 0.1
-    currentfireRate: 0
-    fireRateAcceleration: 0
-    maxFireRate: 0
-    fireRateCount: 0.08
-    burstRate: 2
-    burstRateCount: 2.5199983
-    burstStop: 10
-    burstStopCount: 3
-    burstReturnAngle: 0
-    lifeTime: 0
-    angle: 0
-    lockOn: 1
+    lockOn: 0

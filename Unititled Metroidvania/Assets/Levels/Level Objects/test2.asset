@@ -21,7 +21,7 @@ MonoBehaviour:
     doorway: {fileID: 0}
     doorwayTransform: {fileID: 0}
     doorScript: {fileID: 0}
-  minX: -3
+  minX: 0
   maxX: 3
   minY: 1
   maxY: 3
