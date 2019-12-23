@@ -17,6 +17,9 @@ public class GameManagerScript : MonoBehaviour
 
     public Vector2 playerStartPos;
 
+
+    public List<string> occuredEvents = new List<string>();
+
     // Start is called before the first frame update
     void Start()
     {
@@ -52,6 +55,7 @@ public class GameManagerScript : MonoBehaviour
 
             SceneManager.LoadScene(thisSave.lastSavePoint.roomName, LoadSceneMode.Additive);
             playerStartPos = thisSave.lastSavePoint.location;
+            occuredEvents = thisSave.eventsTriggered;
         }
 
     }

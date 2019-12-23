@@ -17,7 +17,7 @@ public class PlayerSave
     public bool wallJump;
     public bool attack;
 
-    
+    public List<string> eventsTriggered;
 }
 
 public class SaveLoadHandler
@@ -30,6 +30,7 @@ public class SaveLoadHandler
         string savePath = "PlayerSave.json";
         PlayerSave newSave = new PlayerSave();
         newSave.lastSavePoint = savePoint;
+        newSave.eventsTriggered = GameManagerScript.Instance.occuredEvents;
         string filePath = Path.Combine(Application.dataPath, savePath);
 
         string toJSon = JsonUtility.ToJson(newSave);

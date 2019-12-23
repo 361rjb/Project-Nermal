@@ -99,13 +99,9 @@ public class PlayerHorizontalInputBehavior : LogicalStateMachineBehaviour
 
             return;
         }
-        if (controllerScript.pausedGame)
-        { return; }
 
         xInput = Input.GetAxis("Horizontal");
         yInput = Input.GetAxis("Vertical");
-        this.Animator.SetFloat("HorizontalInput", xInput);
-        this.Animator.SetFloat("VerticalInput", yInput);
 
         lastAttackInput = attackInput;
         attackInput = Input.GetAxisRaw("Attack");
@@ -113,6 +109,13 @@ public class PlayerHorizontalInputBehavior : LogicalStateMachineBehaviour
         lastDashInput = dashInput;
         dashInput = Input.GetAxisRaw("Dash");
 
+        lastJumpInput = jumpInput;
+        jumpInput = Input.GetAxisRaw("Jump");
+
+        if (controllerScript.pausedGame)
+        { return; }
+        this.Animator.SetFloat("HorizontalInput", xInput);
+        this.Animator.SetFloat("VerticalInput", yInput);
 
         if (attackInput != 0.0f && lastAttackInput != 1.0f && !attackCoolingDown)
         {
@@ -174,9 +177,6 @@ public class PlayerHorizontalInputBehavior : LogicalStateMachineBehaviour
         {
             thisRigidBody2D.velocity = new Vector2(xInput* playerSlowWalkSpeed, thisRigidBody2D.velocity.y);
         }
-
-        lastJumpInput = jumpInput;
-        jumpInput = Input.GetAxisRaw("Jump");
        
         if(lastJumpInput != 1.0f)
         {
