@@ -1,0 +1,50 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac57a15cff49f0f4fb75ef380ad020da, type: 3}
+  m_Name: WriggleGround
+  m_EditorClassIdentifier: 
+  bulletSpawners:
+  - complete: 0
+    position: {x: 0, y: 0, z: 0}
+    isPositionChildOfOwner: 1
+    bulletType: {fileID: 11400000, guid: 70ae7b878bb976449b778c4b25f9903c, type: 2}
+    bulletCount: 10
+    nextBullet: 0
+    individualTotalAngles: 1
+    individualSpreadAngle: 0
+    totalSpreads: 1
+    totalBulletSpread: 0
+    isRandomSpreads: 0
+    randomMinAngle: 0
+    randomMaxAngle: 0
+    spinSpeed: 0
+    spinSpeedChangeRate: 0
+    spinReverse: 0
+    reversing: 0
+    maxSpinSpeed: 0
+    currentRotation: 180
+    currentSpinSpeed: 0
+    rotateOnBurst: 0
+    fireRate: 0.1
+    currentfireRate: 0
+    fireRateAcceleration: 0
+    maxFireRate: 0
+    fireRateCount: 0
+    burstRate: 2
+    burstRateCount: 0.6599999
+    burstStop: 4
+    burstStopCount: 0
+    burstReturnAngle: 0
+    lifeTime: 6
+    lifeCount: 0.6599999
+    angle: 0
+    lockOn: 0

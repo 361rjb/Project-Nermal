@@ -20,7 +20,7 @@ public class LevelManagerScript : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    void Start()
+    public void Start()
     {
         loadedLevel = false;
         loadedLevel = LoadIntoLevel();
@@ -72,6 +72,11 @@ public class LevelManagerScript : MonoBehaviour
     {
         for (int i = 0; i < thisLevel.doorways.Count; i++)
         {
+            if(GameObject.Find(thisLevel.thisScene + "_to_" + thisLevel.doorways[i].connection))
+            {
+                continue;
+            }
+
             thisLevel.doorways[i].emptyDoor = new GameObject();
 
             //Collision
@@ -88,7 +93,7 @@ public class LevelManagerScript : MonoBehaviour
             //Script Addition
             thisLevel.doorways[i].doorScript = thisLevel.doorways[i].emptyDoor.AddComponent<DoorwayScript>();
 
-
+            
 
             //Connection 
             thisLevel.doorways[i].doorScript.SetRoomConnection(thisLevel.doorways[i].connection);
@@ -110,6 +115,17 @@ public class LevelManagerScript : MonoBehaviour
         {
             Destroy(thisLevel.doorways[i].emptyDoor);
         }
+    }
+
+    Color cameraBoundsColor = new Color(1f, 1f, 1f, 0.1f);
+    Vector2 center;
+
+    private void OnDrawGizmos()
+    {
+        center.x = thisLevel.maxX - thisLevel.minX;
+        center.y = thisLevel.maxY - thisLevel.minY;
+        Gizmos.color = cameraBoundsColor;
+        Gizmos.DrawCube(center, new Vector3( thisLevel.maxX + 23 - thisLevel.minX, thisLevel.maxY + 14 - thisLevel.minY, 1));
     }
 
 }

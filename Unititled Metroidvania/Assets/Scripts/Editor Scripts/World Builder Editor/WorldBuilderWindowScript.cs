@@ -15,6 +15,7 @@ Know Issues**************************
 */
 
 // Class that holds room data
+[System.Serializable]
 public class Room
 {
 
@@ -51,6 +52,7 @@ public class Room
 }
 
 //class that holds door data
+[System.Serializable]
 public class Door
 {
     public enum side { LEFT = 0, RIGHT = 1, UP = 2, DOWN = 3 };
@@ -63,7 +65,9 @@ public class Door
     public void SetPos(Vector2 p) { pos = p; }
 }
 
+
 //Class for connections of doors
+[System.Serializable]
 public class DoorConnection
 {
     public int connectionID;
@@ -800,6 +804,12 @@ public class WorldBuilderWindowScript : EditorWindow
                     level.worldEditorX = room.pos.x;
                     level.worldEditorY = room.pos.y;
 
+                    Scene newScene = EditorSceneManager.OpenScene("Assets/Levels/Level Scenes/" + room.name + ".unity"); ;
+                    LevelManagerScript lvManager = GameObject.Find("Level Manager(Clone)").GetComponent<LevelManagerScript>();
+                    lvManager.CreateRoomSpecs();
+
+                    EditorSceneManager.SaveScene(newScene, "Assets/Levels/Level Scenes/" + room.name + ".unity");
+
                     //Create boolean for deleted
                     bool didntFindDoorInLevel = false;
 
@@ -895,9 +905,10 @@ public class WorldBuilderWindowScript : EditorWindow
         {
             if (toDeleteList.Count >= 1)
             {
+                
                 foreach (LevelObject deletable in toDeleteList.ToArray())
                 {
-                    if (deletable != null || room != null)
+                    if (deletable != null && room != null)
                     {
                         //If it exists remove from list
                         if (deletable.name == room.name)
@@ -918,6 +929,8 @@ public class WorldBuilderWindowScript : EditorWindow
         //Delete every room asset and scene in the Asset Database
         foreach (LevelObject delete in toDeleteList)
         {
+            if (delete == null)
+                continue;
             string deleteName = delete.name;
             AssetDatabase.DeleteAsset("Assets/Levels/Level Objects/" + deleteName + ".asset");
             AssetDatabase.DeleteAsset("Assets/Levels/Level Scenes/" + deleteName + ".unity");

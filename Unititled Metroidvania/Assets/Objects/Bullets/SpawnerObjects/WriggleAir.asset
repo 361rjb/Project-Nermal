@@ -1,0 +1,50 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac57a15cff49f0f4fb75ef380ad020da, type: 3}
+  m_Name: WriggleAir
+  m_EditorClassIdentifier: 
+  bulletSpawners:
+  - complete: 0
+    position: {x: 0, y: 0, z: 0}
+    isPositionChildOfOwner: 1
+    bulletType: {fileID: 11400000, guid: 921ffc625977a4045a0852ca947c6625, type: 2}
+    bulletCount: 30
+    nextBullet: 1
+    individualTotalAngles: 2
+    individualSpreadAngle: 180
+    totalSpreads: 2
+    totalBulletSpread: 90
+    isRandomSpreads: 0
+    randomMinAngle: 0
+    randomMaxAngle: 0
+    spinSpeed: 10
+    spinSpeedChangeRate: 0
+    spinReverse: 0
+    reversing: 0
+    maxSpinSpeed: 45
+    currentRotation: 150
+    currentSpinSpeed: 10
+    rotateOnBurst: 0
+    fireRate: 0.2
+    currentfireRate: 0
+    fireRateAcceleration: 0
+    maxFireRate: 0
+    fireRateCount: 0
+    burstRate: 0
+    burstRateCount: 3.6199973
+    burstStop: 0
+    burstStopCount: 15
+    burstReturnAngle: 0
+    lifeTime: 6
+    lifeCount: 3.6199973
+    angle: 0
+    lockOn: 0

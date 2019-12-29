@@ -77,7 +77,13 @@ public class PlayerHorizontalInputBehavior : LogicalStateMachineBehaviour
     // OnStateUpdate is called before OnStateUpdate is called on any state inside this state machine
     void OnStateUpdate()
     {
-        if(this.Animator.GetBool("Dash"))
+        if (controllerScript.pausedGame)
+        {
+            this.Animator.SetFloat("HorizontalInput", 0);
+            this.Animator.SetFloat("VerticalInput", 0);
+            return;
+        }
+        if (this.Animator.GetBool("Dash"))
         {
             this.Animator.SetBool("Jump", false);
             this.Animator.SetBool("HoldJump", false);
@@ -113,17 +119,20 @@ public class PlayerHorizontalInputBehavior : LogicalStateMachineBehaviour
         jumpInput = Input.GetAxisRaw("Jump");
 
         if (controllerScript.pausedGame)
-        { return; }
+        {
+            this.Animator.SetFloat("HorizontalInput", 0);
+            this.Animator.SetFloat("VerticalInput", 0); 
+            return; }
         this.Animator.SetFloat("HorizontalInput", xInput);
         this.Animator.SetFloat("VerticalInput", yInput);
 
-        if (attackInput != 0.0f && lastAttackInput != 1.0f && !attackCoolingDown)
+        if (GameManagerScript.Instance.CheckState("Attack") && attackInput != 0.0f && lastAttackInput != 1.0f && !attackCoolingDown)
         {
             this.Animator.SetBool("Attacking", true);
             attackCoolingDown = true;
         }
 
-        if(dashInput != 0.0f && lastDashInput != 1.0f && !dashCoolingDown)
+        if(GameManagerScript.Instance.CheckState("Dash") && dashInput != 0.0f && lastDashInput != 1.0f && !dashCoolingDown)
         {
             this.Animator.SetBool("Dash", true);
             dashCoolingDown= true;
@@ -181,25 +190,28 @@ public class PlayerHorizontalInputBehavior : LogicalStateMachineBehaviour
         if(lastJumpInput != 1.0f)
         {
             this.Animator.SetBool("Falling", true);
+
         }
 
         if (jumpInput != 0.0f && lastJumpInput != 1.0f && (!this.Animator.GetBool("InAir") || this.Animator.GetBool("RightWallTouching") || this.Animator.GetBool("LeftWallTouching")))
         {
             this.Animator.SetBool("Jump", true);
             float jumpDirection = 0;
-
-            if(this.Animator.GetBool("RightWallTouching"))
+            if (GameManagerScript.Instance.CheckState("WallJump"))
             {
-                jumpDirection = -wallHorizontalVelocity;
+                if (this.Animator.GetBool("RightWallTouching"))
+                {
+                    jumpDirection = -wallHorizontalVelocity;
+                }
+                else if (this.Animator.GetBool("LeftWallTouching"))
+                {
+
+                    jumpDirection = wallHorizontalVelocity;
+                }
             }
-            else if(this.Animator.GetBool("LeftWallTouching"))
-            {
-
-                jumpDirection = wallHorizontalVelocity;
-            }
 
 
-            thisRigidBody2D.velocity = new Vector2(thisRigidBody2D.velocity.x+jumpDirection, jumpInitialVelocity);
+            thisRigidBody2D.velocity = new Vector2(/* thisRigidBody2D.velocity.x+*/ jumpDirection, jumpInitialVelocity);
             jumpedY = thisTransform.position.y;
             this.Animator.SetBool("Falling", false);
 
@@ -229,7 +241,12 @@ public class PlayerHorizontalInputBehavior : LogicalStateMachineBehaviour
 
         }
 
-        
+        IEnumerator RemoveInput()
+        {
+            controllerScript.pausedGame = true;
+            yield return new WaitForSeconds(0.2f);
+            controllerScript.pausedGame = false;
+        }
 
 
     }

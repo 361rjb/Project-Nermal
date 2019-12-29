@@ -30,7 +30,7 @@ public class PlayerJumpBehavoir : LogicalStateMachineBehaviour
             {
                 thisRigidBody2D.velocity = new Vector2(thisRigidBody2D.velocity.x, jumpHoldVelocity);
             }
-            Debug.Log("HOLDING");
+
             this.Animator.SetBool("Falling", false);
            // this.Animator.SetBool("Jump", false);
         }

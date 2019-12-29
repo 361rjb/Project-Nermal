@@ -29,6 +29,8 @@ public class PlayerInAirBehavior : LogicalStateMachineBehaviour
     [SerializeField]
     LayerMask groundLayer;
 
+    [SerializeField]
+    LayerMask ceilingLayer;
 
     Rigidbody2D thisRigidBody2D;
     Vector2 airVelocity = new Vector2();
@@ -75,7 +77,7 @@ public class PlayerInAirBehavior : LogicalStateMachineBehaviour
         else
         {
             this.Animator.SetBool("FastFallInput", false);
-            Debug.Log(lastJumpInput);
+
         }
     }
 
@@ -99,7 +101,7 @@ public class PlayerInAirBehavior : LogicalStateMachineBehaviour
 
     void CeilingCheck()
     {
-        if (ceilingColliderCheck.IsTouchingLayers(groundLayer))
+        if (ceilingColliderCheck.IsTouchingLayers(ceilingLayer))
         {
             this.Animator.SetBool("Falling", true);
         }
@@ -112,7 +114,9 @@ public class PlayerInAirBehavior : LogicalStateMachineBehaviour
 
     void WallCheck()
     {
-        Debug.Log("Wall Check");
+        if (!GameManagerScript.Instance.CheckState("WallJump"))
+            return;
+
         if (wallLeftColliderCheck.IsTouchingLayers(groundLayer) && this.Animator.GetFloat("HorizontalInput") < -0.1f)
         {
             this.Animator.SetBool("LeftWallTouching", true);

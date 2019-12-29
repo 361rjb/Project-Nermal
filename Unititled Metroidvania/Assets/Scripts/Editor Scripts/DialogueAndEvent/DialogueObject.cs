@@ -18,6 +18,6 @@ public class DialogueObject
 
     //TODO
     //Animation
-
-
+    public AnimationClip clip;
+    public string gameobjectNameThatPlaysClip;
 }

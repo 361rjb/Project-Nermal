@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Bullet Object")]
+[CreateAssetMenu(fileName = "Bullet Object"), System.Serializable]
 public class BulletObject : ScriptableObject
 {
     public string bulletName = "new bullet";

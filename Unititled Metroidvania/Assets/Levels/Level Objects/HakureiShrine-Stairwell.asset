@@ -1,0 +1,46 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9cb94a3a06b46347aab758b5d5d636c, type: 3}
+  m_Name: HakureiShrine-Stairwell
+  m_EditorClassIdentifier: 
+  thisScene: HakureiShrine-Stairwell
+  doorways:
+  - emptyDoor: {fileID: 0}
+    connection: HakureiShrine-StoragePath
+    side: 0
+    otherConnectionSide: 1
+    doorway: {fileID: 0}
+    doorwayTransform: {fileID: 0}
+    doorScript: {fileID: 0}
+  - emptyDoor: {fileID: 0}
+    connection: HakureiShrine-MainShrine
+    side: 0
+    otherConnectionSide: 1
+    doorway: {fileID: 0}
+    doorwayTransform: {fileID: 0}
+    doorScript: {fileID: 0}
+  - emptyDoor: {fileID: 0}
+    connection: HakureiShrine-ForestEntrance
+    side: 1
+    otherConnectionSide: 0
+    doorway: {fileID: 0}
+    doorwayTransform: {fileID: 0}
+    doorScript: {fileID: 0}
+  minX: 4
+  maxX: 4
+  minY: 0
+  maxY: 7
+  xOffset: 0
+  yOffset: 0
+  worldEditorX: 170
+  worldEditorY: 75
+  isInteractable: 0

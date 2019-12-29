@@ -8,6 +8,7 @@ TagManager:
   - Enemy
   - Bullet
   - PlayerAttack
+  - PlayerHitBox
   layers:
   - Default
   - TransparentFX
@@ -19,9 +20,9 @@ TagManager:
   - 
   - Ground
   - Wall
-  - 
-  - 
-  - 
+  - Barrier
+  - Platform
+  - AIPath
   - 
   - 
   - 

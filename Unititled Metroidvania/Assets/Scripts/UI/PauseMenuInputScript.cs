@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class PauseMenuInputScript : MonoBehaviour
 {
+    public static PauseMenuInputScript Instance;
+
     GameObject player;
     PlayerControllerScript playerController;
     [SerializeField]
@@ -25,14 +27,33 @@ public class PauseMenuInputScript : MonoBehaviour
 
     [SerializeField]
     Text dialogue;
-    RectTransform dialoguePos; 
+    RectTransform dialoguePos;
 
     [SerializeField]
     Image characterImage;
     RectTransform imagePos;
 
-    Vector2 imageLeft = new Vector2(-110, 0); 
-    Vector2 imageRight = new Vector2(110, 0); 
+    [SerializeField]
+    Image boxImage;
+
+    [SerializeField]
+    Sprite playerBoxSprite;
+
+    [SerializeField]
+    Sprite otherBoxSprite;
+
+    [Space]
+    [SerializeField]
+    Sprite healthImage;
+    
+    [SerializeField]
+    Sprite healthImageDamaged;
+
+    [SerializeField]
+    GameObject healthPrefab;
+
+    Vector2 imageLeft = new Vector2(-110, 0);
+    Vector2 imageRight = new Vector2(110, 0);
 
 
     float pauseInput;
@@ -41,7 +62,7 @@ public class PauseMenuInputScript : MonoBehaviour
     float proceedDialogueInput;
     float lastProceedDialogueInput;
 
-    bool inPause= false;
+    bool inPause = false;
 
     public bool showSave = false;
 
@@ -49,69 +70,92 @@ public class PauseMenuInputScript : MonoBehaviour
 
     EventScriptableObject currentEvent = null;
 
+    List<Image> healthIcons = new List<Image>();
+
+    int healthIndex = 0;
+
     // Start is called before the first frame update
     void Start()
     {
+
+        if(!Instance)
+        {
+            Instance = this;
+        }
         player = GameObject.FindGameObjectWithTag("Player");
         playerController = player.GetComponent<PlayerControllerScript>();
         characterNamePos = characterName.GetComponent<RectTransform>();
         dialoguePos = dialogue.GetComponent<RectTransform>();
         imagePos = characterImage.GetComponent<RectTransform>();
-        
+        Vector2 spawnPos = new Vector2(-200, 130);
+
+        for(int i = 0; i < ((float)playerController.currentMaxHealth)/2; i++)
+        {
+            GameObject healthIcon = (GameObject)Instantiate(healthPrefab, dialogueBox.transform.parent);
+            healthIcon.transform.localPosition = spawnPos;
+            spawnPos.x += 35;
+            healthIcons.Add(healthIcon.GetComponent<Image>());
+        }
+        healthIndex = playerController.currentMaxHealth;
+
     }
 
-    
+    private void OnDestroy()
+    {
+        Instance = null;
+    }
 
     // Update is called once per frame
     void Update()
     {
         GetInput();
 
-        if(pauseInput == 1.0f && lastPauseInput != 1.0f && !showSave)
+        if (pauseInput == 1.0f && lastPauseInput != 1.0f && !showSave)
         {
             inPause = !inPause;
         }
 
         if (inPause || showSave || inDialogue)
         {
-            Time.timeScale = 0.0f;
             if (showSave)
             {
+                Time.timeScale = 0.0f;
                 savingImage.SetActive(true);
             }
             else if (inPause)
             {
+                Time.timeScale = 0.0f;
                 pauseMenu.SetActive(true);
             }
-            else if(inDialogue)
+            else if (inDialogue)
             {
                 DrawDialogueEvent();
             }
-            
+
             playerController.pausedGame = true;
         }
         else
         {
-            Time.timeScale = 1.0f; 
-            
-                savingImage.SetActive(false);
-            
-                dialogueBox.SetActive(false);
-                pauseMenu.SetActive(false);
-            
+            Time.timeScale = 1.0f;
+
+            savingImage.SetActive(false);
+
+            dialogueBox.SetActive(false);
+            pauseMenu.SetActive(false);
+
             playerController.pausedGame = false;
         }
-        
+
     }
 
     void GetInput()
     {
-     
-            
-       if (inDialogue)
+
+
+        if (inDialogue)
         {
-        lastProceedDialogueInput = proceedDialogueInput;
-        proceedDialogueInput= Input.GetAxisRaw("Submit");
+            lastProceedDialogueInput = proceedDialogueInput;
+            proceedDialogueInput = Input.GetAxisRaw("Submit");
         }
         else
         {
@@ -133,6 +177,7 @@ public class PauseMenuInputScript : MonoBehaviour
         eventDialogueIndex = 0;
 
         currentEvent = thisEvent;
+        PlayEventAnimation();
     }
 
     Vector2 newNamePos = new Vector2();
@@ -141,13 +186,14 @@ public class PauseMenuInputScript : MonoBehaviour
     int eventDialogueIndex = 0;
     void DrawDialogueEvent()
     {
-        
+
         if (currentEvent.dialogueEvents[eventDialogueIndex].isPlayer)
         {
             characterName.alignment = TextAnchor.UpperLeft;
             imagePos.localPosition = imageLeft;
             newDialoguePos.x = 25;
             newDialoguePos.y = -5;
+            boxImage.sprite = playerBoxSprite;
         }
         else
         {
@@ -155,37 +201,158 @@ public class PauseMenuInputScript : MonoBehaviour
             imagePos.localPosition = imageRight;
             newDialoguePos.x = -25;
             newDialoguePos.y = -5;
+            boxImage.sprite = otherBoxSprite;
         }
         dialoguePos.localPosition = newDialoguePos;
-        
-        
 
-            characterName.text = currentEvent.dialogueEvents[eventDialogueIndex].characterName;
 
-            dialogue.text = "<size=" + currentEvent.dialogueEvents[eventDialogueIndex].fontSize + ">" +
-                currentEvent.dialogueEvents[eventDialogueIndex].dialogueString + "</size>";
 
-            characterImage.sprite = currentEvent.dialogueEvents[eventDialogueIndex].characterImage;
+        characterName.text = currentEvent.dialogueEvents[eventDialogueIndex].characterName;
+
+        dialogue.text = "<size=" + currentEvent.dialogueEvents[eventDialogueIndex].fontSize + ">" +
+            currentEvent.dialogueEvents[eventDialogueIndex].dialogueString + "</size>";
+
+        characterImage.sprite = currentEvent.dialogueEvents[eventDialogueIndex].characterImage;
 
         if (lastProceedDialogueInput != 1.0f && proceedDialogueInput == 1.0f)
         {
-            eventDialogueIndex++;
-        }
-        if(eventDialogueIndex >= currentEvent.dialogueEvents.Count)
-        {
-            eventDialogueIndex = -1;
-            inDialogue = false;
-            dialogueBox.SetActive(false);
-            if (!currentEvent.canOccurAgain)
+            if (gameObjectAnimated)
             {
-                GameManagerScript.Instance.occuredEvents.Add(currentEvent.eventName);
+                if (!gameObjectAnimated.isPlaying)
+                {
+                    eventDialogueIndex++;
+                    if (eventDialogueIndex >= currentEvent.dialogueEvents.Count)
+                    {
+                        eventDialogueIndex = -1;
+
+                        if (currentEvent.isBoss)
+                        {
+                            BossRoomManagerScript.Instance.EnableBoss();
+                        }
+                        inDialogue = false;
+                        dialogueBox.SetActive(false);
+                        if (!currentEvent.canOccurAgain)
+
+                        {
+                            GameManagerScript.Instance.occuredEvents.Add(currentEvent.eventName);
+                        }
+                    }
+                    else
+                    {
+
+                        PlayEventAnimation();
+                    }
+                }
             }
+            else
+            {
+                eventDialogueIndex++;
+                if (eventDialogueIndex >= currentEvent.dialogueEvents.Count)
+                {
+                    eventDialogueIndex = -1;
+
+                    if (currentEvent.isBoss)
+                    {
+                        BossRoomManagerScript.Instance.EnableBoss();
+                    }
+
+                    inDialogue = false;
+                    dialogueBox.SetActive(false);
+
+                    if (!currentEvent.canOccurAgain)
+
+                    {
+                        GameManagerScript.Instance.occuredEvents.Add(currentEvent.eventName);
+                    }
+
+                }
+                else
+                {
+
+                    PlayEventAnimation();
+                }
+            }
+        }
+    }
+
+    Animation gameObjectAnimated;
+    void PlayEventAnimation()
+    {
+        if (currentEvent.dialogueEvents[eventDialogueIndex].clip)
+        {
+            currentEvent.dialogueEvents[eventDialogueIndex].clip.legacy = true;
+            gameObjectAnimated = GameObject.Find(currentEvent.dialogueEvents[eventDialogueIndex].gameobjectNameThatPlaysClip).GetComponent<Animation>();
+            gameObjectAnimated.AddClip(currentEvent.dialogueEvents[eventDialogueIndex].clip, currentEvent.dialogueEvents[eventDialogueIndex].clip.name);
+
+            Debug.Log(gameObjectAnimated.GetClipCount());
+            gameObjectAnimated.Play(currentEvent.dialogueEvents[eventDialogueIndex].clip.name);
         }
     }
 
     public void ExitGame()
     {
         Debug.Log("Exiting");
+        GameManagerScript.Instance.MainMenu(playerController.currentLevelScript.thisLevel.thisScene);
+    }
+
+    public void PlayerTakeDamage(int amount)
+    {
+        StartCoroutine(TickHealth  (amount, true));
+    }
+
+    public void PlayerHeal(int amount)
+    {
+        StartCoroutine(TickHealth(amount, false));
+    }
+
+    IEnumerator TickHealth(int amount, bool isDamage)
+    {
+        for(float i = 0; i < amount; i++)
+        {
+            if(isDamage && healthIndex - i > 0)
+            {
+                int index = Mathf.Clamp(Mathf.CeilToInt(((float)healthIndex - i) / 2f), 0, healthIcons.Count);
+                Debug.Log("Index " + index);
+                if ((healthIndex - i) % 2 == 0 )
+                {
+                    healthIcons[index-1].sprite = healthImageDamaged;
+                }
+                else 
+                {
+                    healthIcons[index-1].enabled = false;
+                }
+
+            }
+            else if (i + healthIndex <= healthIcons.Count*2)
+            {
+
+                int index = Mathf.Clamp(Mathf.CeilToInt(((float)healthIndex + i) / 2f), 0, healthIcons.Count);
+                if ((healthIndex + i) % 2f == 1)
+                {
+                    healthIcons[index-1].enabled = true;
+                    healthIcons[index-1].sprite = healthImageDamaged;
+
+                }
+                else
+                {
+                    healthIcons[index-1].enabled = true;
+                    healthIcons[index-1].sprite = healthImage;
+                }
+            }
+
+            yield return new WaitForSecondsRealtime(0.3f);
+        }
+
+        if (isDamage)
+        {
+            healthIndex = Mathf.Clamp(healthIndex - amount , 0, playerController.currentMaxHealth);
+        }
+        else
+        {
+
+            healthIndex = Mathf.Clamp(healthIndex + amount , 0, playerController.currentMaxHealth);
+        }
+        Debug.Log("HealthIndex " + healthIndex);
     }
 
 }

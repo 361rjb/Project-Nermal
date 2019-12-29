@@ -6,16 +6,18 @@ using System.IO;
 
 public class PlayerSave
 {
+    public int saveIndex;
+
     //location
     public IdolSavePoint lastSavePoint;
     
     //unimplemented
     public int currency;
-    
+
+    public int currentMaxHealth;
+
     // Abilities
-    public bool dash;
-    public bool wallJump;
-    public bool attack;
+    public List<KeyItemState> keyItems;
 
     public List<string> eventsTriggered;
 }
@@ -27,10 +29,18 @@ public class SaveLoadHandler
     public static void SaveGame(IdolSavePoint savePoint)
     {
 
-        string savePath = "PlayerSave.json";
+        string savePath = "PlayerSave" + GameManagerScript.Instance.gameIndex + ".json";
         PlayerSave newSave = new PlayerSave();
+
+        newSave.saveIndex = GameManagerScript.Instance.gameIndex;
         newSave.lastSavePoint = savePoint;
         newSave.eventsTriggered = GameManagerScript.Instance.occuredEvents;
+        newSave.currentMaxHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerControllerScript>().currentMaxHealth;
+        newSave.keyItems = new List<KeyItemState>();
+        foreach (KeyItemState s in GameManagerScript.Instance.keyItemStates)
+        {
+            newSave.keyItems.Add(s);
+        }
         string filePath = Path.Combine(Application.dataPath, savePath);
 
         string toJSon = JsonUtility.ToJson(newSave);
@@ -45,9 +55,9 @@ public class SaveLoadHandler
         
     }
 
-    public static PlayerSave LoadGame()
+    public static PlayerSave LoadGame(int index)
     {
-        string savePath = "PlayerSave.json";
+        string savePath = "PlayerSave" + index + ".json";
         string filePath = Path.Combine(Application.dataPath, savePath);
         string json = "";
 

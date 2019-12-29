@@ -150,8 +150,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerScene: PlayerAssetScene
-  testLoadScene: TestRoom
+  testLoadScene: HakureiShrine-StorageHouse
   testPauseUI: PauseMenu
+  mainMenu: MainMenu
+  playerStartPos: {x: 0, y: 0}
+  occuredEvents: []
+  currentMaxHealth: 0
+  gameIndex: 0
+  keyItems:
+  - Attack
+  - Dash
+  - WallJump
 --- !u!4 &1169038113
 Transform:
   m_ObjectHideFlags: 0

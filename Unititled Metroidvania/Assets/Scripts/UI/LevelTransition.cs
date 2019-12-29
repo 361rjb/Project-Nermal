@@ -48,6 +48,7 @@ public class LevelTransition : MonoBehaviour
         anim.ResetTrigger("Black");
 
         anim.SetTrigger("Alpha");
+        
     }
     
     void Fade()

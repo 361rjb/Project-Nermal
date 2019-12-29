@@ -39,34 +39,6 @@ public class PlayerControllerScript : MonoBehaviour
     //Editor Variables
     [Header ("Movement")]
     [SerializeField]
-    float playerWalkSpeed = 0;
-
-    [SerializeField]
-    float playerAirSpeed = 0;
-
-    [SerializeField]
-    float playerSlowWalkSpeed = 0;
-
-    [SerializeField]
-    float jumpHeightLimit = 5f;
-
-    [SerializeField]
-    float jumpInitialVelocity;
-
-    [SerializeField]
-    float jumpHoldVelocity;
-
-    [SerializeField]
-    int shortHopFrameLength;
-    int shortHopCounter;
-
-    [SerializeField]
-    float fastFallSpeed;
-
-    [SerializeField]
-    int fastFallFrameLength;
-
-    [SerializeField]
     GameObject groundCheck;
     Collider2D groundColliderCheck;
     [SerializeField]
@@ -84,6 +56,13 @@ public class PlayerControllerScript : MonoBehaviour
     [HideInInspector]
     public bool canControl = true;
 
+    public int health;
+    public int currentMaxHealth = 6;
+
+    public Vector2 lastGroundedPosition;
+
+    PlayerCamera thisCamera;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -93,16 +72,17 @@ public class PlayerControllerScript : MonoBehaviour
         thisRigidBody2D = thisGameObject.GetComponent<Rigidbody2D>();
         groundColliderCheck = groundCheck.GetComponent<Collider2D>();
         ceilingColliderCheck = ceilingCheck.GetComponent<Collider2D>();
+        thisCamera = GameObject.Find("Main Camera").GetComponent<PlayerCamera>();
         thisAnimator = GetComponent<Animator>();
         levelTransScript = GameObject.Find("LevelTransition").GetComponent<LevelTransition>();
         yInteract.SetActive(false);
-
+        health = GameManagerScript.Instance.currentMaxHealth;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!canControl)
+        if (!canControl || pausedGame)
         {
             Transition();
             thisAnimator.SetBool("Transitioning", true);
@@ -124,6 +104,34 @@ public class PlayerControllerScript : MonoBehaviour
         {
             thisRigidBody2D.velocity = new Vector2(0, 0);
         }
+    }
+
+    public void TakeDamage(int amount)
+    {
+        health -= amount;
+        PauseMenuInputScript.Instance.PlayerTakeDamage(amount);
+        if(health <=0)
+        {
+            PlayerReload();
+        }
+
+    }
+
+    public void HealPlayer(int amount)
+    {
+        if(amount == -1)
+        {
+            amount = currentMaxHealth - health + 1;
+        }
+        Debug.Log(amount);
+        health = Mathf.Clamp(health + amount, 0, currentMaxHealth);
+        PauseMenuInputScript.Instance.PlayerHeal(amount);
+    }
+
+
+    void PlayerReload()
+    {
+        GameManagerScript.Instance.Reload(currentLevelScript.thisLevel.thisScene);
     }
 
     void Transition()
@@ -197,9 +205,10 @@ public class PlayerControllerScript : MonoBehaviour
 
     IEnumerator WaitForLevelLoad(string currentDoor, string conenctedDoor)
     {
+        
         yield return new WaitForSecondsRealtime(0.1f);
         GameObject[] doorways = GameObject.FindGameObjectsWithTag("Doorway");
-
+        yInteract.SetActive(false);
         foreach (GameObject door in doorways)
         {
 
@@ -228,12 +237,12 @@ public class PlayerControllerScript : MonoBehaviour
                     default:
                         break;
                 }
-
-                
+                thisCamera.SetPosition(transform.position);
                 Physics2D.IgnoreCollision(door.GetComponent<Collider2D>(), GetComponent<Collider2D>());
                 yield return new WaitForSecondsRealtime(1f);
                 Physics2D.IgnoreCollision(door.GetComponent<Collider2D>(), GetComponent<Collider2D>(), false);
                 
+
 
                 break;
             }

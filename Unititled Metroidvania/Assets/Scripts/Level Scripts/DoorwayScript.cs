@@ -6,7 +6,7 @@ using UnityEngine.Events;
 
 public class DoorwayScript : MonoBehaviour
 {
-   [SerializeField] string connectedRoom;
+    [SerializeField] string connectedRoom;
     [SerializeField] string currentRoom;
 
     PlayerControllerScript playerScript;
@@ -14,6 +14,8 @@ public class DoorwayScript : MonoBehaviour
     Vector2 newPlayerPosition = new Vector2();
 
     public Door.side thisDoorSide;
+
+    public bool isInteractable = false;
 
     void Start()
     {
@@ -29,24 +31,51 @@ public class DoorwayScript : MonoBehaviour
     {
         currentRoom = room;
     }
-    
+
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.tag == "Player")
         {
-            StartCoroutine(TransitionPause());
-            playerScript.LevelTransition();
+            if (!isInteractable)
+            {
+
+                StartCoroutine(TransitionPause());
+                playerScript.LevelTransition();
+
+            }
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.tag == "Player" && isInteractable)
+        {
+
+            playerScript.yInteract.SetActive(true);
+            if (playerScript.interactInput == 1.0f)
+            {
+                StartCoroutine(TransitionPause());
+                playerScript.LevelTransition();
+            }
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.tag == "Player")
+        {
+            playerScript.yInteract.SetActive(false);
         }
     }
 
 
-    IEnumerator TransitionPause( )
+    IEnumerator TransitionPause()
     {
         yield return new WaitForSeconds(0.5f);
         SceneManager.LoadScene(connectedRoom, LoadSceneMode.Additive);
         SceneManager.UnloadSceneAsync(currentRoom);
         playerScript.SetPlayerPositionWithDoors(currentRoom, connectedRoom);
-        
+
     }
 }

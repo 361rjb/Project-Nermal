@@ -10,6 +10,14 @@ public class EventTrigger : MonoBehaviour
 
     PauseMenuInputScript uiHandler;
 
+    [SerializeField]
+    float delay = 0;
+
+    [SerializeField]
+    GameObject toEnableorDisable;
+    [SerializeField]
+    bool activate = false;
+
     private void Start()
     {
         uiHandler = GameObject.Find("UI Handler").GetComponent<PauseMenuInputScript>();
@@ -24,7 +32,22 @@ public class EventTrigger : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        uiHandler.StartDialogueEvent(thisEvent);
+        if (collision.tag == "Player")
+        {
+                            StartCoroutine(DelayEvent());
+            
+        }
+    }
+
+    IEnumerator DelayEvent()
+    {
+        yield return new WaitForSecondsRealtime(delay);
+            uiHandler.StartDialogueEvent(thisEvent);
+        if (toEnableorDisable)
+        {
+            toEnableorDisable.SetActive(activate);
+        }
+
     }
 
 
@@ -32,6 +55,10 @@ public class EventTrigger : MonoBehaviour
     {
         if (thisEvent.canOccurAgain == false && GameManagerScript.Instance.occuredEvents.Contains(thisEvent.eventName))
         {
+            if (toEnableorDisable)
+            {
+                toEnableorDisable.SetActive(activate);
+            }
             gameObject.SetActive(false);
         }
     }

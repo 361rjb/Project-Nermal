@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1056559250646186032}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.3, y: 0, z: 0}
+  m_LocalPosition: {x: -0.4, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5745429507884484991}
@@ -192,7 +192,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2887891125370554351}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.3, y: 0, z: 0}
+  m_LocalPosition: {x: 0.4, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5745429507884484991}
@@ -367,15 +367,6 @@ MonoBehaviour:
   yInteract: {fileID: 6075776076582166688}
   pausedGame: 0
   interactInput: 0
-  playerWalkSpeed: 8
-  playerAirSpeed: 8
-  playerSlowWalkSpeed: 0.5
-  jumpHeightLimit: 4
-  jumpInitialVelocity: 15
-  jumpHoldVelocity: 15
-  shortHopFrameLength: 3
-  fastFallSpeed: -3
-  fastFallFrameLength: 10
   groundCheck: {fileID: 5745429507805540988}
   ceilingCheck: {fileID: 5745429508119455060}
   groundLayer:
@@ -383,6 +374,9 @@ MonoBehaviour:
     m_Bits: 256
   currentLevelScript: {fileID: 0}
   canControl: 1
+  health: 0
+  currentMaxHealth: 6
+  lastGroundedPosition: {x: 0, y: 0}
 --- !u!50 &5745429507884484984
 Rigidbody2D:
   serializedVersion: 4
@@ -513,7 +507,7 @@ GameObject:
   - component: {fileID: 8771735117720882016}
   m_Layer: 0
   m_Name: PlayerHealthBox
-  m_TagString: Untagged
+  m_TagString: PlayerHitBox
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

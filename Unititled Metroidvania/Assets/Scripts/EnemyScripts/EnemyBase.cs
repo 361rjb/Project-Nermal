@@ -27,7 +27,7 @@ public class EnemyBase : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    void Start()
+    protected virtual void Start()
     {
         
         //Remove when enemyloader Enabled
@@ -35,7 +35,7 @@ public class EnemyBase : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+   protected virtual void Update()
     {
         CheckDeath();
     }

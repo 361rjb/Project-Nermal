@@ -16,16 +16,16 @@ MonoBehaviour:
   bulletImage: {fileID: 21300000, guid: 1ac8ec21d47138249be8b73e1602675d, type: 3}
   bulletPath:
   - position: {x: 0, y: 0}
-    slowRadius: 0.2
-    slowSpeed: 2
-    targetRadius: 0.1
-    speed: 5
-  - position: {x: 5, y: 0}
     slowRadius: 0.1
     slowSpeed: 2
-    targetRadius: 0.1
+    targetRadius: 0.2
     speed: 5
-  playPathOnce: 0
+  - position: {x: 1, y: 0}
+    slowRadius: 0.1
+    slowSpeed: 2
+    targetRadius: 0.2
+    speed: 5
+  playPathOnce: 1
   acceleration: 0
   maxSpeed: 0.01
   minSpeed: 0.01

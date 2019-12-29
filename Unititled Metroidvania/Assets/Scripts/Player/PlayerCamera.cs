@@ -10,6 +10,9 @@ public class PlayerCamera : MonoBehaviour
     [SerializeField]
     Transform player;
 
+    Vector3 lerpLocation;
+         
+
     // Start is called before the first frame update
     void Start()
     {
@@ -24,8 +27,10 @@ public class PlayerCamera : MonoBehaviour
 
     void MoveToPlayer()
     {
-        
-            transform.position = new Vector3(player.position.x, player.position.y, transform.position.z);
+        lerpLocation.x = player.position.x;
+        lerpLocation.y = player.position.y;
+        lerpLocation.z = transform.position.z;
+        transform.position = Vector3.Lerp(transform.position, lerpLocation, Time.deltaTime * 5f);
         CheckBounds();
     }
 
@@ -50,7 +55,13 @@ public class PlayerCamera : MonoBehaviour
             newPos = new Vector3(newPos.x, currentLevel.minY, transform.position.z);
         }
 
-        transform.position = newPos;
+        transform.position =  newPos; 
+    }
+
+    public void SetPosition(Vector3 pos)
+    {
+        pos.z = transform.position.z;
+        transform.position = pos;
     }
 
     public void SetLevel(LevelObject thisLevel)

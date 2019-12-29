@@ -70,9 +70,9 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 1ac8ec21d47138249be8b73e1602675d, type: 3}
-  m_Color: {r: 0.0011415482, g: 0, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -95,6 +95,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   thisBulletComponent: {fileID: 0}
+  currentIndex: 0
   bulletEnabled: 0
   rotation: {x: 0, y: 0}
   rotatePathAroundPoint: {x: 0, y: 0}

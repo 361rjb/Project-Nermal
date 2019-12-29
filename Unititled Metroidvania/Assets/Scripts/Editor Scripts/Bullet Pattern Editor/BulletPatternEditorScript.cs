@@ -16,4 +16,14 @@ public class BulletPatternEditorScript : EditorWindow
     {
         
     }
+
+    void DrawOptions()
+    {
+
+    }
+
+    void VisualizePattern()
+    {
+
+    }
 }

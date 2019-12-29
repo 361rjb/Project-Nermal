@@ -29,6 +29,8 @@ public class BulletGameobjectScript : MonoBehaviour
     Matrix4x4 rotationMat;
     float rotationDegree;
 
+    Collider2D col;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -51,6 +53,8 @@ public class BulletGameobjectScript : MonoBehaviour
     {
 
         thisRigidBody = GetComponent<Rigidbody2D>();
+        col = GetComponent<Collider2D>();
+        col.enabled = true;
         thisSpriteRenderer = GetComponent<SpriteRenderer>();
         if (thisSpriteRenderer != null)
         {
@@ -61,6 +65,7 @@ public class BulletGameobjectScript : MonoBehaviour
         Debug.Log("Enabled");
         if(thisBulletComponent != null)
         {
+            thisRigidBody.velocity = Vector2.zero;
             position = transform.position;
             target = position + thisBulletComponent.bulletPath[currentIndex].position;
         }
@@ -73,6 +78,7 @@ public class BulletGameobjectScript : MonoBehaviour
         thisSpriteRenderer.enabled = false;
         currentIndex = 0;
         bulletEnabled = false;
+        col.enabled = false;
 
     }
 
@@ -165,8 +171,9 @@ public class BulletGameobjectScript : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.tag == "Player" || collision.gameObject.layer == LayerMask.NameToLayer("Ground") || collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
+        if(collision.tag == "PlayerHitBox" ||  collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
         {
+            Debug.Log("collision : " + collision.gameObject);
             DisableBullet();
         }
     }

@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d340d217c76482499d06b3a643d0e4b, type: 3}
+  m_Name: WriggleBossIntro
+  m_EditorClassIdentifier: 
+  dialogueEvents:
+  - characterName: Wriggle
+    fontSize: 11
+    isPlayer: 0
+    dialogueString: You there!! Get out of my way! This is my turf!
+    characterImage: {fileID: 0}
+    clip: {fileID: 0}
+    gameobjectNameThatPlaysClip: 
+  - characterName: Reimu
+    fontSize: 11
+    isPlayer: 1
+    dialogueString: You're picking a fight with the shrine maiden? Get ready to be
+      exterminated!
+    characterImage: {fileID: 0}
+    clip: {fileID: 0}
+    gameobjectNameThatPlaysClip: 
+  - characterName: Wriggle
+    fontSize: 11
+    isPlayer: 0
+    dialogueString: Still cocky I see, we will see who is stronger after I beat you
+      to the ground!
+    characterImage: {fileID: 0}
+    clip: {fileID: 0}
+    gameobjectNameThatPlaysClip: 
+  eventName: WriggleBossIntro
+  canOccurAgain: 0
+  isBoss: 1

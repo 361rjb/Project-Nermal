@@ -18,21 +18,54 @@ EditorBuildSettings:
     path: Assets/Scenes/Universal Scenes/PlayerAssetScene.unity
     guid: 894c7228e2ab4df448b6deb1a3a7e48e
   - enabled: 0
-    path: Assets/Levels/Level Scenes/TestRoom1.unity
-    guid: f454e9329c47dfe4caab1fa60a2f6f01
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 0
-    path: Assets/Levels/Level Scenes/TestRoom2.unity
-    guid: 4c4b75f984ea2034caeb5495f12294d4
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 1
+    path: Assets/Levels/Level Scenes/HakureiShrine-DeepWoods.unity
+    guid: d882558e4682f5f40b6ce4cd774182bb
+  - enabled: 1
+    path: Assets/Levels/Level Scenes/HakureiShrine-ForestEntrance.unity
+    guid: 6e0b0a7ef3866ed47afcb46fd89a15ba
+  - enabled: 1
+    path: Assets/Levels/Level Scenes/HakureiShrine-MainShrine.unity
+    guid: 5efe285de837bee4584c95ef59e41fb6
+  - enabled: 1
+    path: Assets/Levels/Level Scenes/HakureiShrine-MountainPath.unity
+    guid: 928f8fc84dd1ec44bb457f8dd3d41258
+  - enabled: 1
+    path: Assets/Levels/Level Scenes/HakureiShrine-PathwayShrine.unity
+    guid: 3851e4bc03043eb44881c1988cc55a56
+  - enabled: 1
+    path: Assets/Levels/Level Scenes/HakureiShrine-Stairwell.unity
+    guid: 63d91ae202903af45bf665b3acd1b2d1
+  - enabled: 1
+    path: Assets/Levels/Level Scenes/HakureiShrine-StorageHouse.unity
+    guid: 7a5ffa79c90c82646b8ab87aee091932
+  - enabled: 1
+    path: Assets/Levels/Level Scenes/HakureiShrine-StoragePath.unity
+    guid: 8795970c6e5d00844831337ea9776ee6
+  - enabled: 1
+    path: Assets/Levels/Level Scenes/HakureiShrine-VillageWoods.unity
+    guid: e299a90616d280a49a6d23e90650ddf1
+  - enabled: 1
+    path: Assets/Levels/Level Scenes/HumanVillage-HakureiShrinePath.unity
+    guid: 87f952b59fcc12e499188a9006432ada
   - enabled: 1
     path: Assets/Scenes/TestRooms/Test1.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
     path: Assets/Scenes/TestRooms/TestRoom2.unity
     guid: b301d81cd83c8174085255ac5295a6e1
-  - enabled: 1
+  - enabled: 0
     path: Assets/Levels/Level Scenes/test2.unity
     guid: f3c27cfc62ae64b4ca25a98b77f4f336
   - enabled: 1
     path: Assets/Levels/Level Scenes/TestRoom.unity
     guid: 55200574aeb0c9c4e8d13f2a6b9499b1
+  - enabled: 1
+    path: Assets/Levels/Level Scenes/BossTestRoom.unity
+    guid: 9da466ffd74169c4499572b2beb91992
   m_configObjects: {}

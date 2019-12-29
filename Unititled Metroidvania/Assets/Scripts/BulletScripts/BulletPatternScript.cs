@@ -30,7 +30,7 @@ public class BulletPatternScript : MonoBehaviour
         {
             spawnerList = thisPattern.bulletSpawners;
         }
-        StartPattern();
+        //StartPattern();
     }
 
     // Update is called once per frame
@@ -39,10 +39,39 @@ public class BulletPatternScript : MonoBehaviour
         FirePattern();
     }
 
-    public void StartPattern()
+   public void ResetAll()
+    {
+        int spawnerIndex = 0;
+        foreach (SpawnerObject spawner in spawnerList)
+        {
+            for (int i = 0; i < spawner.bulletCount; i++)
+            {
+                GameObject.Destroy(bulletObjectPool[spawnerIndex][i].bulletGameObject);
+            }
+            bulletObjectPool[spawnerIndex].Clear();
+            bulletObjectPool.Clear();
+            spawnerIndex++;
+        }
+
+        poolDisableIndex.Clear();
+    }
+
+    public bool CheckPatternComplete()
+    {
+        foreach(SpawnerObject spawner in spawnerList)
+        {
+            if(!spawner.complete)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+
+    public void SpawnBullets()
     {
         SceneManager.SetActiveScene(gameObject.scene);
-        patternOn = true;
         spawnerList = thisPattern.bulletSpawners;
         bulletObjectPool = new List<List<BulletContainer>>();
         int spawnerIndex = 0;
@@ -54,7 +83,8 @@ public class BulletPatternScript : MonoBehaviour
                 bulletObjectPool[spawnerIndex].Add(new BulletContainer());
                 bulletObjectPool[spawnerIndex][i].bulletGameObject = (GameObject)Instantiate(defaultBulletPrefeb, spawnerList[spawnerIndex].isPositionChildOfOwner ? transform.position + spawnerList[spawnerIndex].position : spawnerList[spawnerIndex].position, transform.rotation);
                 bulletObjectPool[spawnerIndex][i].thisBulletScript = bulletObjectPool[spawnerIndex][i].bulletGameObject.GetComponent<BulletGameobjectScript>();
-                bulletObjectPool[spawnerIndex][i].thisBulletScript.EnableBullet();
+                //bulletObjectPool[spawnerIndex][i].thisBulletScript.EnableBullet();
+                //bulletObjectPool[spawnerIndex][i].thisBulletScript.DisableBullet();
                 bulletObjectPool[spawnerIndex][i].thisBulletScript.SetBulletComponent(spawnerList[spawnerIndex].bulletType);
 
                 bulletObjectPool[spawnerIndex][i].bulletTransform = bulletObjectPool[spawnerIndex][i].bulletGameObject.transform;
@@ -69,6 +99,40 @@ public class BulletPatternScript : MonoBehaviour
             spawner.nextBullet = 0;
             spawner.burstStopCount = 0;
             spawner.reversing = false;
+            spawner.lifeCount = 0;
+            spawner.complete = false;
+
+        }
+    }
+
+    public void DisablePattern()
+    {
+        patternOn = false;
+    }
+
+    public void StartPattern()
+    {
+        
+        patternOn = true;
+        spawnerList = thisPattern.bulletSpawners;        
+        int spawnerIndex = 0;
+        foreach (SpawnerObject spawner in spawnerList)
+        {
+            for (int i = 0; i < spawner.bulletCount; i++)
+            {
+                bulletObjectPool[spawnerIndex][i].bulletTransform = bulletObjectPool[spawnerIndex][i].bulletGameObject.transform;
+
+            }
+            spawnerIndex++;
+            spawner.currentRotation = spawner.angle;
+            spawner.currentSpinSpeed = spawner.spinSpeed;
+            spawner.fireRateCount = 0;
+            spawner.burstRateCount = 0;
+            spawner.nextBullet = 0;
+            spawner.burstStopCount = 0;
+            spawner.reversing = false;
+            spawner.lifeCount = 0;
+            spawner.complete = false;
 
         }
 
@@ -84,6 +148,15 @@ public class BulletPatternScript : MonoBehaviour
             SpawnerShooting(spawner);
             currentSpawner++;
             currentSpawner %= spawnerList.Count;
+            if(spawner.lifeTime > 0)
+            {
+                spawner.lifeCount += Time.deltaTime;
+                if(spawner.lifeCount >= spawner.lifeTime)
+                {
+                    spawner.lifeCount = 0;
+                    spawner.complete = true;
+                }
+            }
         }
     }
 
@@ -176,6 +249,7 @@ public class BulletPatternScript : MonoBehaviour
 
                             bulletObjectPool[currentSpawner][spawner.nextBullet].thisBulletScript.SetRotation(rotation);
                         bulletObjectPool[currentSpawner][spawner.nextBullet].bulletTransform.position = spawnerList[currentSpawner].isPositionChildOfOwner ? transform.position + spawnerList[currentSpawner].position : spawnerList[currentSpawner].position;
+                        bulletObjectPool[currentSpawner][spawner.nextBullet].thisBulletScript.DisableBullet();
                         bulletObjectPool[currentSpawner][spawner.nextBullet].thisBulletScript.EnableBullet();
 
                     }

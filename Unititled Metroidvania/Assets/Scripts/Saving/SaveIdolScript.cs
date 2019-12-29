@@ -20,6 +20,7 @@ public class SaveIdolScript : Interactable
         base.OnInteractEvent();
         Debug.Log("Interact to save");
         uiHandler.showSave = true;
+        GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerControllerScript>().HealPlayer(-1);
         SaveLoadHandler.SaveGame(thisSavePoint);
         StartCoroutine(Save());
     }

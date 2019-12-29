@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-[CreateAssetMenu(fileName = "Level Object")]
+[CreateAssetMenu(fileName = "Level Object"), System.Serializable]
 public class LevelObject : ScriptableObject
 {
     public string thisScene; //Use Object instead???

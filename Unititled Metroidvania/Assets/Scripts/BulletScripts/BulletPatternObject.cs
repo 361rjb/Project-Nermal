@@ -14,6 +14,9 @@ public class BulletPatternObject : ScriptableObject
 [System.Serializable]
 public class SpawnerObject
 {
+
+    [HideInInspector]
+    public bool complete = false;
     public Vector3 position;    //*DONE*
     public bool isPositionChildOfOwner;    //*DONE*
 
@@ -67,6 +70,8 @@ public class SpawnerObject
     public bool burstReturnAngle = false;    //*DONE*
 
     public float lifeTime;
+    [HideInInspector]
+    public float lifeCount;
     public float angle;    //*DONE*
 
     public bool lockOn;    //*DONE*
@@ -83,6 +88,7 @@ public class SpawnerObject
         
 }
 
+[System.Serializable]
 public class BulletContainer
 {
     public GameObject bulletGameObject;

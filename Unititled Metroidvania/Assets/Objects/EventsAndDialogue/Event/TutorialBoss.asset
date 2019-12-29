@@ -1,0 +1,85 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d340d217c76482499d06b3a643d0e4b, type: 3}
+  m_Name: TutorialBoss
+  m_EditorClassIdentifier: 
+  dialogueEvents:
+  - characterName: ???
+    fontSize: 17
+    isPlayer: 0
+    dialogueString: HEY!!!!
+    characterImage: {fileID: 0}
+    clip: {fileID: 0}
+    gameobjectNameThatPlaysClip: 
+  - characterName: Reimu
+    fontSize: 8
+    isPlayer: 1
+    dialogueString: '<I>I can recognize that voice for miles... and I she''s the last
+      thing I wanna deal with right now.</I> '
+    characterImage: {fileID: 0}
+    clip: {fileID: 0}
+    gameobjectNameThatPlaysClip: 
+  - characterName: Aya
+    fontSize: 11
+    isPlayer: 0
+    dialogueString: Is something the matter Reimu? You're looking a little under the
+      weather. Would a danmaku cheer you up?
+    characterImage: {fileID: 0}
+    clip: {fileID: 0}
+    gameobjectNameThatPlaysClip: 
+  - characterName: Reimu
+    fontSize: 11
+    isPlayer: 1
+    dialogueString: I think giving you a beating will put me in higher spririts Aya,
+      get ready!
+    characterImage: {fileID: 0}
+    clip: {fileID: 0}
+    gameobjectNameThatPlaysClip: 
+  - characterName: Reimu
+    fontSize: 11
+    isPlayer: 1
+    dialogueString: '...'
+    characterImage: {fileID: 0}
+    clip: {fileID: 0}
+    gameobjectNameThatPlaysClip: 
+  - characterName: Reimu
+    fontSize: 8
+    isPlayer: 1
+    dialogueString: <I>Why's my magic not working???</I>
+    characterImage: {fileID: 0}
+    clip: {fileID: 0}
+    gameobjectNameThatPlaysClip: 
+  - characterName: Aya
+    fontSize: 11
+    isPlayer: 0
+    dialogueString: What's up Reimu? Too early in the morning?
+    characterImage: {fileID: 0}
+    clip: {fileID: 0}
+    gameobjectNameThatPlaysClip: 
+  - characterName: Aya
+    fontSize: 11
+    isPlayer: 0
+    dialogueString: Could it be that the great shrine maiden lost her magic? This
+      is a big scoop!
+    characterImage: {fileID: 0}
+    clip: {fileID: 0}
+    gameobjectNameThatPlaysClip: 
+  - characterName: Reimu
+    fontSize: 11
+    isPlayer: 1
+    dialogueString: Oh don't you dare! I can still beat you with my purification rod!
+    characterImage: {fileID: 0}
+    clip: {fileID: 0}
+    gameobjectNameThatPlaysClip: 
+  eventName: TutorialBoss
+  canOccurAgain: 0
+  isBoss: 1
