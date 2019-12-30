@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f9cb94a3a06b46347aab758b5d5d636c, type: 3}
-  m_Name: HumanVillage-HakureiShrinePath
+  m_Name: HumanVillage-Suzunaan
   m_EditorClassIdentifier: 
-  thisScene: HumanVillage-HakureiShrinePath
+  thisScene: HumanVillage-Suzunaan
   doorways:
   - emptyDoor: {fileID: 0}
-    connection: HakureiShrine-VillageWoods
+    connection: HumanVillage-Center
     side: 0
     otherConnectionSide: 1
     doorway: {fileID: 0}
@@ -23,6 +23,20 @@ MonoBehaviour:
     doorScript: {fileID: 0}
   - emptyDoor: {fileID: 0}
     connection: HumanVillage-MainRoad
+    side: 2
+    otherConnectionSide: 3
+    doorway: {fileID: 0}
+    doorwayTransform: {fileID: 0}
+    doorScript: {fileID: 0}
+  - emptyDoor: {fileID: 0}
+    connection: HumanVillage-WillowPathEntrance
+    side: 1
+    otherConnectionSide: 0
+    doorway: {fileID: 0}
+    doorwayTransform: {fileID: 0}
+    doorScript: {fileID: 0}
+  - emptyDoor: {fileID: 0}
+    connection: Suzunaan
     side: 1
     otherConnectionSide: 0
     doorway: {fileID: 0}
@@ -34,6 +48,6 @@ MonoBehaviour:
   maxY: 0
   xOffset: 0
   yOffset: 0
-  worldEditorX: 434
-  worldEditorY: 128
+  worldEditorX: 536
+  worldEditorY: 175
   isInteractable: 0

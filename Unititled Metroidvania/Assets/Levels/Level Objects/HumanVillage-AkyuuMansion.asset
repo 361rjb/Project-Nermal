@@ -10,19 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f9cb94a3a06b46347aab758b5d5d636c, type: 3}
-  m_Name: HumanVillage-HakureiShrinePath
+  m_Name: HumanVillage-AkyuuMansion
   m_EditorClassIdentifier: 
-  thisScene: HumanVillage-HakureiShrinePath
+  thisScene: HumanVillage-AkyuuMansion
   doorways:
   - emptyDoor: {fileID: 0}
-    connection: HakureiShrine-VillageWoods
+    connection: HumanVillage-HouseDistrict
     side: 0
     otherConnectionSide: 1
     doorway: {fileID: 0}
     doorwayTransform: {fileID: 0}
     doorScript: {fileID: 0}
   - emptyDoor: {fileID: 0}
-    connection: HumanVillage-MainRoad
+    connection: AkyuuMansion
     side: 1
     otherConnectionSide: 0
     doorway: {fileID: 0}
@@ -34,6 +34,6 @@ MonoBehaviour:
   maxY: 0
   xOffset: 0
   yOffset: 0
-  worldEditorX: 434
-  worldEditorY: 128
+  worldEditorX: 531
+  worldEditorY: 89
   isInteractable: 0

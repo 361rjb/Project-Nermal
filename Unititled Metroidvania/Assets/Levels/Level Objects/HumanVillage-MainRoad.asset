@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9cb94a3a06b46347aab758b5d5d636c, type: 3}
+  m_Name: HumanVillage-MainRoad
+  m_EditorClassIdentifier: 
+  thisScene: HumanVillage-MainRoad
+  doorways:
+  - emptyDoor: {fileID: 0}
+    connection: HumanVillage-GeneralStore
+    side: 3
+    otherConnectionSide: 2
+    doorway: {fileID: 0}
+    doorwayTransform: {fileID: 0}
+    doorScript: {fileID: 0}
+  - emptyDoor: {fileID: 0}
+    connection: HumanVillage-Suzunaan
+    side: 3
+    otherConnectionSide: 2
+    doorway: {fileID: 0}
+    doorwayTransform: {fileID: 0}
+    doorScript: {fileID: 0}
+  - emptyDoor: {fileID: 0}
+    connection: HumanVillage-HouseDistrict
+    side: 2
+    otherConnectionSide: 3
+    doorway: {fileID: 0}
+    doorwayTransform: {fileID: 0}
+    doorScript: {fileID: 0}
+  - emptyDoor: {fileID: 0}
+    connection: MyourenTemple-Entrance
+    side: 1
+    otherConnectionSide: 0
+    doorway: {fileID: 0}
+    doorwayTransform: {fileID: 0}
+    doorScript: {fileID: 0}
+  - emptyDoor: {fileID: 0}
+    connection: HumanVillage-HakureiShrinePath
+    side: 0
+    otherConnectionSide: 1
+    doorway: {fileID: 0}
+    doorwayTransform: {fileID: 0}
+    doorScript: {fileID: 0}
+  minX: 0
+  maxX: 0
+  minY: 0
+  maxY: 0
+  xOffset: 0
+  yOffset: 0
+  worldEditorX: 485
+  worldEditorY: 130
+  isInteractable: 0
