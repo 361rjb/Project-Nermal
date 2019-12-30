@@ -237,6 +237,7 @@ public class PlayerControllerScript : MonoBehaviour
                     default:
                         break;
                 }
+                lastGroundedPosition = transform.position;
                 thisCamera.SetPosition(transform.position);
                 Physics2D.IgnoreCollision(door.GetComponent<Collider2D>(), GetComponent<Collider2D>());
                 yield return new WaitForSecondsRealtime(1f);

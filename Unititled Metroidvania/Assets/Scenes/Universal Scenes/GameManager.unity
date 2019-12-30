@@ -161,6 +161,7 @@ MonoBehaviour:
   - Attack
   - Dash
   - WallJump
+  keyItemStates: []
 --- !u!4 &1169038113
 Transform:
   m_ObjectHideFlags: 0

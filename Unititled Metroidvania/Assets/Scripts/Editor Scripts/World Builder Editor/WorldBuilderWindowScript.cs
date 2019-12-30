@@ -1073,23 +1073,25 @@ public class WorldBuilderWindowScript : EditorWindow
             //Add to room dictionary
             rooms.Add(currentNewKeyIndex, newRoom);
             //increment key
-            currentNewKeyIndex++;
 
+            Debug.Log("Room " + rooms[currentNewKeyIndex].name + " : " + currentNewKeyIndex);
             //add doorways
             for (int d = 0; d < newObject.doorways.Count; d++)
             {
                 //set room and add door
-                roomRightClicked = i;
+                roomRightClicked = currentNewKeyIndex;
                 //Add door to list 
                 AddDoor(newObject.doorways[d].side);
                 //Create new connection
                 DoorConnection newConnection = new DoorConnection();
                 //Set this door to connection
-                newConnection.thisDoor = rooms[roomRightClicked].doors[d];
+                Debug.Log("This index : " + currentNewKeyIndex + " Room name : " + rooms[currentNewKeyIndex].name + " door index : " + d + " door count: " + rooms[currentNewKeyIndex].doors.Count);
+                newConnection.thisDoor = rooms[currentNewKeyIndex].doors[d];
                 //Set connection to door in list
-                rooms[roomRightClicked].doors[d].connection = newConnection;
+                rooms[currentNewKeyIndex].doors[d].connection = newConnection;
                 //Add door to room foor list
             }
+            currentNewKeyIndex++;
         }
 
         //Create Connections in for loop 
