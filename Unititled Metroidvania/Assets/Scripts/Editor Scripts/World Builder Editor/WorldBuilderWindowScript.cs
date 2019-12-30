@@ -1074,7 +1074,7 @@ public class WorldBuilderWindowScript : EditorWindow
             rooms.Add(currentNewKeyIndex, newRoom);
             //increment key
 
-            Debug.Log("Room " + rooms[currentNewKeyIndex].name + " : " + currentNewKeyIndex);
+           
             //add doorways
             for (int d = 0; d < newObject.doorways.Count; d++)
             {
@@ -1085,7 +1085,7 @@ public class WorldBuilderWindowScript : EditorWindow
                 //Create new connection
                 DoorConnection newConnection = new DoorConnection();
                 //Set this door to connection
-                Debug.Log("This index : " + currentNewKeyIndex + " Room name : " + rooms[currentNewKeyIndex].name + " door index : " + d + " door count: " + rooms[currentNewKeyIndex].doors.Count);
+               
                 newConnection.thisDoor = rooms[currentNewKeyIndex].doors[d];
                 //Set connection to door in list
                 rooms[currentNewKeyIndex].doors[d].connection = newConnection;
@@ -1097,31 +1097,41 @@ public class WorldBuilderWindowScript : EditorWindow
         //Create Connections in for loop 
         //Increment for templist should be same size as rooms for every asset
         int r = 0;
+            
         //for each room in the newly created dictionary
         foreach (Room room in rooms.Values)
         {
             //if there are doors in the asset add new connection
             if (tempList[r].doorways.Count >= 1)
             {
-
+                Debug.Log("Room " + room.name + " has " + room.doors.Count + " doors");
                 //For Every door in room
                 for (int d = 0; d < room.doors.Count; d++)
                 {
+                    if (room.doors[d].connection.connection != null)
+                    {
+                        continue;
+                    }
+
 
                     //Find other door with connection
                     Door otherDoor = FindDoorWithConnection(room, tempList[r]);
 
+                    
                     //Continue if other didn't find the other door
                     if (otherDoor == null)
                     {
                         continue;
                     }
+                    
                     //Set connected door to other door
                     room.doors[d].connection.connection = otherDoor;
                     //Set other door connection to the current door looped through
                     otherDoor.connection.connection = room.doors[d];
                     //Add connection to list of connections
-                    connections.Add(otherDoor.connection);
+                    if (!connections.Contains(room.doors[d].connection) || !connections.Contains(otherDoor.connection))
+                        connections.Add(room.doors[d].connection);
+                      //  connections.Add(otherDoor.connection);
 
                 }
             }
@@ -1157,10 +1167,14 @@ public class WorldBuilderWindowScript : EditorWindow
     //Get the door with the room connected
     Door FindDoorWithConnection(Room room, LevelObject level)
     {
-
+        
         //Check each door
         foreach (Door door in room.doors)
         {
+            if(door.connection.connection != null)
+            {
+                continue;
+            }
             //for each door connection in the level
             foreach (SceneConnector connection in level.doorways)
             {
@@ -1173,6 +1187,8 @@ public class WorldBuilderWindowScript : EditorWindow
                     continue;
                 }
 
+                
+               
                 //If the doors room isn't the same as as the found room skip otherwise look for connection
                 if (rooms[door.roomNum].name != foundRoom.name)
                 {
@@ -1180,15 +1196,17 @@ public class WorldBuilderWindowScript : EditorWindow
                     foreach (Door otherDoor in foundRoom.doors)
                     {
                         //if the connectios are already exist or do in the other door
-                        if (otherDoor.connection.connection != null || otherDoor.connection == null)
+                        if (otherDoor.connection.connection != null || otherDoor.connection == null
+                            || door.connection.connection != null || door.connection.connection == otherDoor )
                         {
                             continue;
 
                         }
 
                         //Check to see if these two doors have the other connections side and its side the same
-                        if (otherDoor.doorSide == connection.otherConnectionSide)
+                        if (otherDoor.doorSide == connection.otherConnectionSide && rooms[otherDoor.roomNum].name == connection.connection)
                         {
+                            Debug.Log(rooms[otherDoor.roomNum].name + " "+ room.name);
                             //This is the other door in the connection
                             return otherDoor;
                         }
