@@ -18,6 +18,8 @@ public class PlayerAttackBehavior : LogicalStateMachineBehaviour
 
     Vector2 hitLagVelocity = Vector2.zero;
 
+    Animator attackAnimator;
+
     // OnStateEnter is called before OnStateEnter is called on any state inside this state machine
     protected override void OnStateEntered()
     {
@@ -29,14 +31,18 @@ public class PlayerAttackBehavior : LogicalStateMachineBehaviour
         hitboxTransform.gameObject.GetComponent<Collider2D>().enabled = true;
         thisSpriteRenderer = this.Animator.gameObject.GetComponent<SpriteRenderer>();
         thisRigidBody2D = this.Animator.GetComponent<Rigidbody2D>();
+        attackAnimator = hitboxTransform.gameObject.GetComponent<Animator>();
+        attackAnimator.Play("PlayerAttack", -1, 0f);
 
         if (thisSpriteRenderer.flipX)
         {
             hitboxTransform.localPosition = new Vector2(-0.7f, hitboxTransform.localPosition.y);
+            hitBoxSpriteRender.flipX = true;
         }
         else
         {
             hitboxTransform.localPosition = new Vector2(0.7f, hitboxTransform.localPosition.y);
+            hitBoxSpriteRender.flipX = false;
         }
     }
 
