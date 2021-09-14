@@ -64,6 +64,11 @@ public class PlayerHorizontalInputBehavior : LogicalStateMachineBehaviour
     SpriteRenderer thisSpriteRender;
 
     PlayerControllerScript controllerScript;
+    [SerializeField]
+    PhysicsMaterial2D fullFriction;
+    [SerializeField]
+    PhysicsMaterial2D noFriction;
+
 
     // OnStateEnter is called before OnStateEnter is called on any state inside this state machine
     protected override void OnStateEntered()
@@ -108,6 +113,10 @@ public class PlayerHorizontalInputBehavior : LogicalStateMachineBehaviour
 
         xInput = Input.GetAxis("Horizontal");
         yInput = Input.GetAxis("Vertical");
+
+        thisRigidBody2D.sharedMaterial = (xInput == 0.0f && this.Animator.GetBool("OnSlope")) ?
+                fullFriction : noFriction;
+
 
         lastAttackInput = attackInput;
         attackInput = Input.GetAxisRaw("Attack");
@@ -177,6 +186,7 @@ public class PlayerHorizontalInputBehavior : LogicalStateMachineBehaviour
         {
             this.Animator.SetBool("SlowWalk", !this.Animator.GetBool("SlowWalk"));
         }
+                
 
         if(!this.Animator.GetBool("SlowWalk"))
         {
@@ -250,6 +260,8 @@ public class PlayerHorizontalInputBehavior : LogicalStateMachineBehaviour
 
 
     }
+
+
 
     // OnStateExit is called before OnStateExit is called on any state inside this state machine
     //override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

@@ -9,6 +9,7 @@ TagManager:
   - Bullet
   - PlayerAttack
   - PlayerHitBox
+  - Spikes
   layers:
   - Default
   - TransparentFX

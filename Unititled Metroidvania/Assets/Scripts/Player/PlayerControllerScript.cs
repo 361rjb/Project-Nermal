@@ -131,6 +131,7 @@ public class PlayerControllerScript : MonoBehaviour
 
     void PlayerReload()
     {
+        //TO DO: add a menu option for whether you want to continue or go to main menu
         GameManagerScript.Instance.Reload(currentLevelScript.thisLevel.thisScene);
     }
 

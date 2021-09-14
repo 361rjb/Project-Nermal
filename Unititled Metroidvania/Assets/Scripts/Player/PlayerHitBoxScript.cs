@@ -64,6 +64,17 @@ public class PlayerHitBoxScript : MonoBehaviour
             playerController.TakeDamage(1);
 
         }
+        else if (other.tag == "Spikes")
+        {
+            Debug.Log("Player collided with" + other.tag);
+            animator.SetBool("HitStun", true);            
+            circleCollider.enabled = false;
+            playerController.transform.position = playerController.lastGroundedPosition;
+            playerController.LevelTransition();
+            playerController.TakeDamage(1);
+
+        }
+
     }
 
     private void OnTriggerStay2D(Collider2D other)
@@ -77,6 +88,16 @@ public class PlayerHitBoxScript : MonoBehaviour
             playerRB.velocity = Vector2.zero;
             playerRB.AddForce((playerTransform.position - other.transform.position).normalized * 10f);
             circleCollider.enabled = false;
+            playerController.TakeDamage(1);
+
+        }
+        else if (other.tag == "Spikes")
+        {
+            Debug.Log("Player collided with" + other.tag);
+            animator.SetBool("HitStun", true);
+            circleCollider.enabled = false;
+            playerController.transform.position = playerController.lastGroundedPosition;
+            playerController.LevelTransition();
             playerController.TakeDamage(1);
 
         }

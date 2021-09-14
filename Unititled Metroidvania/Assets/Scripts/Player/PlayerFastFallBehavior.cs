@@ -13,10 +13,20 @@ public class PlayerFastFallBehavior : LogicalStateMachineBehaviour
     [SerializeField]
     float fastFallMax;
 
+    GameObject groundCheck;
+    BoxCollider2D groundCheckCollider;
+
+    float groundCheckStartHeight;
+    [SerializeField]
+    float groundCheckFallingHeight;
+
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     protected override void OnStateEntered()
     {
         thisRigidBody2D = this.Animator.gameObject.GetComponent<Rigidbody2D>();
+        groundCheck = GameObject.Find("GroundCheck");
+        groundCheckCollider = groundCheck.GetComponent<BoxCollider2D>();
+        groundCheckStartHeight = groundCheckCollider.size.y;
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -31,16 +41,17 @@ public class PlayerFastFallBehavior : LogicalStateMachineBehaviour
 
         }
         thisRigidBody2D.velocity = airVelocity;
-        
-        
+      //  groundCheckCollider.size.Set(groundCheckCollider.size.x, groundCheckFallingHeight);
+
         Debug.Log("Fast Falling");
      }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
-    //override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    //{
-    //    
-    //}
+    override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+
+       // groundCheckCollider.size.Set(groundCheckCollider.size.x, groundCheckStartHeight);
+    }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()
     //override public void OnStateMove(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

@@ -8997,7 +8997,9 @@ MonoBehaviour:
   - {fileID: 2123056448}
   - {fileID: 1201397}
   smoothing: 1
-  multiplier: 3
+  baseMultiplier: 3
+  xMultiplier: 1
+  yMultiplier: 1
   XParallax: 1
   YParallax: 0
 --- !u!1001 &1841236451
@@ -9108,10 +9110,9 @@ GameObject:
   - component: {fileID: 1887336421}
   - component: {fileID: 1887336420}
   - component: {fileID: 1887336419}
-  - component: {fileID: 1887336418}
   m_Layer: 0
   m_Name: Spikes
-  m_TagString: Untagged
+  m_TagString: Spikes
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9130,18 +9131,6 @@ Transform:
   m_Father: {fileID: 1645489270}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1887336418
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1887336416}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c2201520511580140baba48d71178346, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!66 &1887336419
 CompositeCollider2D:
   m_ObjectHideFlags: 0
@@ -9152,7 +9141,7 @@ CompositeCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -9251,7 +9240,7 @@ TilemapRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -1
+  m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
   m_MaxChunkCount: 16
@@ -14416,7 +14405,7 @@ TilemapRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
   m_MaxChunkCount: 16

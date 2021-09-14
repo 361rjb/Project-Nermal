@@ -20,6 +20,14 @@ public class PlayerGroundedBehavior : LogicalStateMachineBehaviour
     Rigidbody2D thisRigidBody2D;
     Vector2 groundedVelocity = new Vector2();
 
+    
+
+    float slopeDownAngle;
+    float slopeDownAngleOld;
+    Vector2 slopeNormalPerp;
+    bool onSlope = false;
+    
+
     // OnStateEnter is called before OnStateEnter is called on any state inside this state machine
     protected override void OnStateEntered()
     {
@@ -34,8 +42,19 @@ public class PlayerGroundedBehavior : LogicalStateMachineBehaviour
     void OnStateUpdate()
     {
         GroundCheck();
+
         groundedVelocity = thisRigidBody2D.velocity;
-        groundedVelocity.x *= playerWalkSpeed;
+        float xSpeed = groundedVelocity.x;
+        if(onSlope && !this.Animator.GetBool("Jump"))
+        {
+            groundedVelocity.x = playerWalkSpeed * slopeNormalPerp.x * -xSpeed;
+            groundedVelocity.y = playerWalkSpeed * slopeNormalPerp.y * -xSpeed;            
+
+        }
+        else
+        {
+            groundedVelocity.x *= playerWalkSpeed;
+        }
         thisRigidBody2D.velocity = groundedVelocity;
     }
 
@@ -52,6 +71,39 @@ public class PlayerGroundedBehavior : LogicalStateMachineBehaviour
             this.Animator.SetBool("InAir", false);
             //falling = false;
             //fastFall = false;
+
+           RaycastHit2D frontHit = Physics2D.Raycast(groundCheck.transform.position, groundCheck.transform.right, 1.5f, groundLayer);
+           RaycastHit2D backHit = Physics2D.Raycast(groundCheck.transform.position, -groundCheck.transform.right, 1.5f, groundLayer);
+           if (frontHit)
+           {
+               onSlope = true;
+          
+           }
+           else if (backHit)
+           {
+               onSlope = true;
+          
+           }
+           else
+           {
+               onSlope = false;
+               //slopeSideAngle = 0;
+           }
+           RaycastHit2D hit = Physics2D.Raycast(groundCheck.transform.position, Vector2.down, 1.5f, groundLayer);
+           if(hit)
+           {
+               slopeNormalPerp = Vector2.Perpendicular(hit.normal).normalized;
+               slopeDownAngle = Vector2.Angle(hit.normal, Vector2.up);
+          
+               if( slopeDownAngle != slopeDownAngleOld)
+                {
+                    onSlope = true;
+                }
+          
+               slopeDownAngleOld = slopeDownAngle;
+                Debug.DrawRay(hit.point, hit.normal, Color.black);
+           }
+            this.Animator.SetBool("OnSlope", onSlope);
 
         }
         else

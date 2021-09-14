@@ -1,1 +1,0 @@
-{"saveIndex":1,"lastSavePoint":{"roomName":"HakureiShrine-PathwayShrine","location":{"x":-4.019999980926514,"y":0.0,"z":0.0}},"currency":0,"currentMaxHealth":6,"keyItems":[{"itemName":"Attack","state":true},{"itemName":"Dash","state":false},{"itemName":"WallJump","state":false}],"eventsTriggered":["GameStartEvent","GetAttack","TutorialBoss","HakureiShrineStairwellWall"]}
