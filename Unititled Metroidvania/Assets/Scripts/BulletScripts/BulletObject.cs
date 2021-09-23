@@ -30,6 +30,8 @@ public class BulletObject : ScriptableObject
 
     public TrailRenderer bulletTrail;
     
+    public bool isPlayers = false;
+    
 }
 
 //Class for the list of bullet waypoints

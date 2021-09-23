@@ -54,7 +54,7 @@ public class PlayerHitBoxScript : MonoBehaviour
     {
         if (animator.GetBool("HitStun"))
         { return; }
-        if (other.tag == "Enemy" || other.tag == "Bullet")
+        if (other.tag == "Enemy")
         {
             Debug.Log("Player collided with" + other.tag);
             animator.SetBool("HitStun", true);
@@ -74,6 +74,19 @@ public class PlayerHitBoxScript : MonoBehaviour
             playerController.TakeDamage(1);
 
         }
+        else if (other.tag == "Bullet")
+        {
+            BulletGameobjectScript bullet = other.GetComponent<BulletGameobjectScript>();
+            if (bullet && !bullet.thisBulletComponent.isPlayers)
+            {
+                Debug.Log("Player collided with" + other.tag);
+                animator.SetBool("HitStun", true);
+                playerRB.velocity = Vector2.zero;
+                playerRB.AddForce((playerTransform.position - other.transform.position).normalized * 10f);
+                circleCollider.enabled = false;
+                playerController.TakeDamage(1);
+            }
+        }
 
     }
 
@@ -81,7 +94,7 @@ public class PlayerHitBoxScript : MonoBehaviour
     {
         if(animator.GetBool("HitStun"))
         { return; }
-        if(other.tag == "Enemy" || other.tag == "Bullet")
+        if(other.tag == "Enemy")
         {
             Debug.Log("Player collided with" + other.tag);
             animator.SetBool("HitStun", true);
@@ -100,6 +113,19 @@ public class PlayerHitBoxScript : MonoBehaviour
             playerController.LevelTransition();
             playerController.TakeDamage(1);
 
+        }
+        else if ( other.tag == "Bullet")
+        {
+            BulletGameobjectScript bullet = other.GetComponent<BulletGameobjectScript>();
+            if (bullet && !bullet.thisBulletComponent.isPlayers)
+            {
+                Debug.Log("Player collided with" + other.tag);
+                animator.SetBool("HitStun", true);
+                playerRB.velocity = Vector2.zero;
+                playerRB.AddForce((playerTransform.position - other.transform.position).normalized * 10f);
+                circleCollider.enabled = false;
+                playerController.TakeDamage(1);
+            }
         }
     }
 }

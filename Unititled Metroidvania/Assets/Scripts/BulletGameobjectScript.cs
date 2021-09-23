@@ -171,7 +171,7 @@ public class BulletGameobjectScript : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.tag == "PlayerHitBox" ||  collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
+        if(!thisBulletComponent.isPlayers && ( collision.tag == "PlayerHitBox" ||  collision.gameObject.layer == LayerMask.NameToLayer("Ground")) )
         {
             Debug.Log("collision : " + collision.gameObject);
             DisableBullet();

@@ -1,0 +1,1 @@
+{"saveIndex":1,"lastSavePoint":{"roomName":"HakureiShrine-MainShrine","location":{"x":-3.0,"y":1.0,"z":0.0}},"currency":0,"currentMaxHealth":6,"keyItems":[{"itemName":"Attack","state":true},{"itemName":"Dash","state":false},{"itemName":"WallJump","state":false}],"eventsTriggered":["GameStartEvent","GetAttack"]}

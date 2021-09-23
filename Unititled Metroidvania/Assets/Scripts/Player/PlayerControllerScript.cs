@@ -20,6 +20,11 @@ public class PlayerControllerScript : MonoBehaviour
     float jumpInput = 0.0f;
     float lastJumpInput = 0.0f;
     float slowWalkInput = 0.0f;
+    float xInputAlt = 0.0f;
+    float yInputAlt = 0.0f;
+    float abilityInput = 0.0f;
+    float lastAbilityInput = 0.0f;
+
 
     public bool pausedGame = false;
 
@@ -47,6 +52,8 @@ public class PlayerControllerScript : MonoBehaviour
 
     [SerializeField]
     LayerMask groundLayer;
+    [SerializeField]
+    PlayerAbilityController playerAbilityController;
 
     [HideInInspector]
    public LevelManagerScript currentLevelScript;
@@ -99,6 +106,7 @@ public class PlayerControllerScript : MonoBehaviour
             GetInput();
             GroundCheck();
             CeilingCheck();
+            playerAbilityController.AbilityUpdate(Time.deltaTime, lastAbilityInput, abilityInput, xInputAlt, yInputAlt);
         }
         if(thisRigidBody2D.velocity.magnitude > 40)
         {
@@ -183,6 +191,12 @@ public class PlayerControllerScript : MonoBehaviour
 
         lastInteractInput = interactInput;
         interactInput = Input.GetAxisRaw("Interact");
+
+        lastAbilityInput = abilityInput;
+        abilityInput = Input.GetAxisRaw("Ability");
+
+        xInputAlt = Input.GetAxis("HorizontalAlt");
+        yInputAlt = Input.GetAxis("VerticalAlt");
     }
 
 
