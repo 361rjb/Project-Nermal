@@ -29,6 +29,7 @@ public class PlayerAbilityController : MonoBehaviour
         newPosition.y = y;
         transform.localPosition = newPosition*distanceFromPlayer;
         ability.SetBaseValues(lastInput, input, x, y, angle);
+        ability.AbilityUpdate(dt);
 
     }
 }

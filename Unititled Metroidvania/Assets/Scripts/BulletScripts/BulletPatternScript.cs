@@ -11,8 +11,8 @@ public class BulletPatternScript : MonoBehaviour
     [SerializeField]
     GameObject defaultBulletPrefeb;
 
-    [SerializeField]
-    bool patternOn = false;
+    
+    public bool patternOn = false;
     List<List<BulletContainer>> bulletObjectPool;
 
     //Spawning bullets
@@ -245,8 +245,7 @@ public class BulletPatternScript : MonoBehaviour
                                 rotation -= ((spawner.individualSpreadAngle / 2));
                             }
                         }
-
-
+                        
                             bulletObjectPool[currentSpawner][spawner.nextBullet].thisBulletScript.SetRotation(rotation);
                         bulletObjectPool[currentSpawner][spawner.nextBullet].bulletTransform.position = spawnerList[currentSpawner].isPositionChildOfOwner ? transform.position + spawnerList[currentSpawner].position : spawnerList[currentSpawner].position;
                         bulletObjectPool[currentSpawner][spawner.nextBullet].thisBulletScript.DisableBullet();
