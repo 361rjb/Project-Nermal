@@ -10459,11 +10459,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6306541952862535328}
     m_Modifications:
-    - target: {fileID: 4095285480886681428, guid: 181b99a17b2d08d438ee6964442e107c,
-        type: 3}
-      propertyPath: m_Name
-      value: BasicProjectileAbility
-      objectReference: {fileID: 0}
     - target: {fileID: 82128804679041901, guid: 181b99a17b2d08d438ee6964442e107c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -10519,11 +10514,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4095285480886681428, guid: 181b99a17b2d08d438ee6964442e107c,
+        type: 3}
+      propertyPath: m_Name
+      value: BasicProjectileAbility
+      objectReference: {fileID: 0}
     - target: {fileID: -4010080826396618413, guid: 181b99a17b2d08d438ee6964442e107c,
         type: 3}
       propertyPath: thisPattern
       value: 
-      objectReference: {fileID: 11400000, guid: 5708828dc07ba9e418910175382d8ac2,
+      objectReference: {fileID: 11400000, guid: 89bb061863f9dfa4bb225c6c8b3f9b96,
         type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 181b99a17b2d08d438ee6964442e107c, type: 3}

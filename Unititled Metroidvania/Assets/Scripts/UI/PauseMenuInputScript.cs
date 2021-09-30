@@ -52,6 +52,18 @@ public class PauseMenuInputScript : MonoBehaviour
     [SerializeField]
     GameObject healthPrefab;
 
+    //Menu Tabs variables
+    [Header("Menu Tabs"), SerializeField]
+    List<GameObject> menuContentHolders = new List<GameObject>();
+
+    [SerializeField]
+    List<RectTransform> menuTabs = new List<RectTransform>();
+
+    [SerializeField]
+    List<Vector2> tabsAnchors = new List<Vector2>();
+
+    int currentTabIndex = 2;
+
     Vector2 imageLeft = new Vector2(-110, 0);
     Vector2 imageRight = new Vector2(110, 0);
 
@@ -164,10 +176,6 @@ public class PauseMenuInputScript : MonoBehaviour
         }
     }
 
-    public void OptionsButton()
-    {
-        Debug.Log("Show Options");
-    }
 
     public void StartDialogueEvent(EventScriptableObject thisEvent)
     {
@@ -289,11 +297,6 @@ public class PauseMenuInputScript : MonoBehaviour
         }
     }
 
-    public void ExitGame()
-    {
-        Debug.Log("Exiting");
-        GameManagerScript.Instance.MainMenu(playerController.currentLevelScript.thisLevel.thisScene);
-    }
 
     public void PlayerTakeDamage(int amount)
     {
@@ -355,4 +358,43 @@ public class PauseMenuInputScript : MonoBehaviour
         Debug.Log("HealthIndex " + healthIndex);
     }
 
+
+//**********************************************************
+//Buttons Scripts
+//********************************************************** 
+
+
+    public void OpenTab(int tabIndex)
+    {
+        menuContentHolders.ForEach(h => h.SetActive(false));
+        menuContentHolders[tabIndex].SetActive(true);
+        int tabsCount = menuTabs.Count;
+        int tabsMiddle = menuTabs.Count/2;
+        for(int i =1; i <= tabsCount; i++)
+        {            
+            menuTabs[i-1].localPosition =  tabsAnchors[((i + tabIndex-1) % tabsCount)];
+
+            Debug.Log("Object " + menuTabs[i-1].gameObject.name + " location " + ((i + tabIndex-1) % tabsCount));
+        }
+    }
+
+    public void ExitGame()
+    {
+        Debug.Log("Exiting");
+        GameManagerScript.Instance.MainMenu(playerController.currentLevelScript.thisLevel.thisScene);
+    }
+    
+    public void CreditsButton()
+    {
+        Debug.Log("Show Credits");
+    }
+
+    public void SoundsButton()
+    {
+        Debug.Log("Show Sounds");
+    }
+    public void ControlsButton()
+    {
+        Debug.Log("Show Controls");
+    }
 }

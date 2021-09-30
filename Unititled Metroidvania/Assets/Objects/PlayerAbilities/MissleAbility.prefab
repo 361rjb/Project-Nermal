@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7883383238664225691}
   - component: {fileID: -4010080826396618413}
   m_Layer: 0
-  m_Name: BasicProjectileAbility
+  m_Name: MissleAbility
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -106,7 +106,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee61ca33926e60c42b16750b26074988, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  thisPattern: {fileID: 11400000, guid: 89bb061863f9dfa4bb225c6c8b3f9b96, type: 2}
+  thisPattern: {fileID: 11400000, guid: ce8bdddfdb2b2974f9952150980d25f2, type: 2}
   defaultBulletPrefeb: {fileID: 8601819762863534284, guid: a1602fedb4a7671438e898eb3ada9cf1,
     type: 3}
   patternOn: 0
