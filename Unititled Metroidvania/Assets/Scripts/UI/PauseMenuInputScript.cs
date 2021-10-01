@@ -369,12 +369,16 @@ public class PauseMenuInputScript : MonoBehaviour
         menuContentHolders.ForEach(h => h.SetActive(false));
         menuContentHolders[tabIndex].SetActive(true);
         int tabsCount = menuTabs.Count;
-        int tabsMiddle = menuTabs.Count/2;
-        for(int i =1; i <= tabsCount; i++)
-        {            
-            menuTabs[i-1].localPosition =  tabsAnchors[((i + tabIndex-1) % tabsCount)];
-
-            Debug.Log("Object " + menuTabs[i-1].gameObject.name + " location " + ((i + tabIndex-1) % tabsCount));
+        for(int i =0, j = tabIndex; i < tabsCount; ++i, ++j)
+        {
+            if (j >= tabsCount)
+            {
+                j = 0;
+            }
+            menuTabs[j].localPosition =  tabsAnchors[i];
+            Debug.Log("Object " + menuTabs[j].gameObject.name + " location "  + j);
+            
+            
         }
     }
 
