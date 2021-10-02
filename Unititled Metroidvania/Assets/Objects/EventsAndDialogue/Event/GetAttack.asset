@@ -23,3 +23,5 @@ MonoBehaviour:
   eventName: GetAttack
   canOccurAgain: 0
   isBoss: 0
+  logTitle: Gohei
+  loggedText: I found my stick yo

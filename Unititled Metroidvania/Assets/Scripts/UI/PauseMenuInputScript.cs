@@ -376,8 +376,7 @@ public class PauseMenuInputScript : MonoBehaviour
                 j = 0;
             }
             menuTabs[j].localPosition =  tabsAnchors[i];
-            Debug.Log("Object " + menuTabs[j].gameObject.name + " location "  + j);
-            
+          
             
         }
     }

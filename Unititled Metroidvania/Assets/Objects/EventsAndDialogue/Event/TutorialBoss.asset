@@ -83,3 +83,5 @@ MonoBehaviour:
   eventName: TutorialBoss
   canOccurAgain: 0
   isBoss: 1
+  logTitle: Suprise! Aya
+  loggedText: something about aya

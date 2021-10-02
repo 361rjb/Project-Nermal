@@ -14,4 +14,12 @@ public class EventScriptableObject : ScriptableObject
     public bool canOccurAgain;
     public bool isBoss;
 
+    [Header("Log Data, Be Sure to add any event\n into LogUIScript in PauseMenu")]
+    [Space]
+    public string logTitle;
+    [Space]
+    [TextArea]
+    public string loggedText;
+
+
 }

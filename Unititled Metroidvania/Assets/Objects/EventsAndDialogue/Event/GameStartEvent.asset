@@ -38,3 +38,5 @@ MonoBehaviour:
   eventName: GameStartEvent
   canOccurAgain: 0
   isBoss: 0
+  logTitle: Introduction
+  loggedText: Adventure started!
