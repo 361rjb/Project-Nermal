@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class LogUIScript : MonoBehaviour
 {
     [SerializeField]
-    Text logText;
-    [SerializeField]
     Text textBox;
 
+    [SerializeField]
+    EventSystem eventSystem;
 
     [SerializeField]
     GameObject logEventPrefab;
@@ -31,6 +32,12 @@ public class LogUIScript : MonoBehaviour
     List<EventScriptableObject> events = new List<EventScriptableObject>();
 
 
+    bool inLogs = false;
+    float cancelInput = 0;
+    float lastCancelInput = 0;
+
+    [SerializeField]
+    GameObject logButton;
 
     // Start is called before the first frame update
     void Start()
@@ -67,11 +74,27 @@ public class LogUIScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(inLogs)
+        {
+            GetInput();
+
+            if(cancelInput == 1.0f && lastCancelInput != 1.0f)
+            {
+                eventSystem.SetSelectedGameObject(logButton.gameObject);
+                inLogs = false;
+            }
+        }
+    }
+
+    void GetInput()
+    {
+        lastCancelInput = cancelInput;
+        cancelInput = Input.GetAxisRaw("Cancel");
     }
 
     public void EnterLogScroll()
     {
-
+        eventSystem.SetSelectedGameObject(loggedEvents[0].gameObject);
+        inLogs = true;
     }
 }

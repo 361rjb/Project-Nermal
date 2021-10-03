@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
-public class LogEventScript : MonoBehaviour
+public class LogEventScript : MonoBehaviour, ISelectHandler
 {
     [SerializeField]
     Text logText;
     
-    public Button buttonScript;
+    public Selectable buttonScript;
 
     Text textObj;
 
@@ -26,8 +27,9 @@ public class LogEventScript : MonoBehaviour
         textbox = textIn;
         textObj = textObjIn;
     }
+    
 
-    public void OnClick()
+    public void OnSelect(BaseEventData eventData)
     {
         textObj.text = textbox;
     }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class PauseMenuInputScript : MonoBehaviour
 {
@@ -17,6 +18,8 @@ public class PauseMenuInputScript : MonoBehaviour
     [Space]
     [Header("Dialogue Varibales")]
 
+    [SerializeField]
+    EventSystem eventSystem;
 
     [SerializeField]
     GameObject dialogueBox;
@@ -57,7 +60,9 @@ public class PauseMenuInputScript : MonoBehaviour
     List<GameObject> menuContentHolders = new List<GameObject>();
 
     [SerializeField]
-    List<RectTransform> menuTabs = new List<RectTransform>();
+    List<Button> menuTabs = new List<Button>();
+    [SerializeField]
+    List<Selectable> firstSelectableInTab = new List<Selectable>();
 
     [SerializeField]
     List<Vector2> tabsAnchors = new List<Vector2>();
@@ -125,6 +130,7 @@ public class PauseMenuInputScript : MonoBehaviour
         if (pauseInput == 1.0f && lastPauseInput != 1.0f && !showSave)
         {
             inPause = !inPause;
+            eventSystem.SetSelectedGameObject(menuTabs[currentTabIndex].gameObject);
         }
 
         if (inPause || showSave || inDialogue)
@@ -368,6 +374,8 @@ public class PauseMenuInputScript : MonoBehaviour
     {
         menuContentHolders.ForEach(h => h.SetActive(false));
         menuContentHolders[tabIndex].SetActive(true);
+        Navigation newNav = new Navigation();
+        newNav.mode = Navigation.Mode.Explicit;
         int tabsCount = menuTabs.Count;
         for(int i =0, j = tabIndex; i < tabsCount; ++i, ++j)
         {
@@ -375,10 +383,20 @@ public class PauseMenuInputScript : MonoBehaviour
             {
                 j = 0;
             }
-            menuTabs[j].localPosition =  tabsAnchors[i];
-          
-            
+            Debug.Log(menuTabs[j].navigation.selectOnLeft + " " + menuTabs[j].navigation.selectOnRight);
+            menuTabs[j].transform.localPosition =  tabsAnchors[i];
+            newNav.selectOnLeft = menuTabs[j].navigation.selectOnLeft;
+            newNav.selectOnRight= menuTabs[j].navigation.selectOnRight;
+            newNav.selectOnDown = firstSelectableInTab[tabIndex];
+            menuTabs[j].navigation = newNav;
+
         }
+
+
+
+        currentTabIndex = tabIndex;
+
+
     }
 
     public void ExitGame()
