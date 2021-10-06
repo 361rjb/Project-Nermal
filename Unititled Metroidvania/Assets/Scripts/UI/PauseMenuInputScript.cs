@@ -20,6 +20,8 @@ public class PauseMenuInputScript : MonoBehaviour
 
     [SerializeField]
     EventSystem eventSystem;
+    [SerializeField]
+    LogUIScript logSystem;
 
     [SerializeField]
     GameObject dialogueBox;
@@ -75,6 +77,8 @@ public class PauseMenuInputScript : MonoBehaviour
 
     float pauseInput;
     float lastPauseInput;
+    float lastCancelInput;
+    float cancelInput;
 
     float proceedDialogueInput;
     float lastProceedDialogueInput;
@@ -128,10 +132,16 @@ public class PauseMenuInputScript : MonoBehaviour
         GetInput();
 
         if (pauseInput == 1.0f && lastPauseInput != 1.0f && !showSave)
-        {
+        {            
             inPause = !inPause;
+            
             eventSystem.SetSelectedGameObject(menuTabs[currentTabIndex].gameObject);
         }
+        if(inPause && !logSystem.inLogs && (cancelInput == 1.0f && lastCancelInput != 1.0f && pauseInput != 1.0f))
+        {
+            inPause = false;
+        }
+
 
         if (inPause || showSave || inDialogue)
         {
@@ -144,6 +154,7 @@ public class PauseMenuInputScript : MonoBehaviour
             {
                 Time.timeScale = 0.0f;
                 pauseMenu.SetActive(true);
+                
             }
             else if (inDialogue)
             {
@@ -179,6 +190,9 @@ public class PauseMenuInputScript : MonoBehaviour
         {
             lastPauseInput = pauseInput;
             pauseInput = Input.GetAxisRaw("Pause");
+            lastCancelInput = cancelInput;
+            cancelInput = Input.GetAxisRaw("Cancel");
+
         }
     }
 
@@ -383,7 +397,7 @@ public class PauseMenuInputScript : MonoBehaviour
             {
                 j = 0;
             }
-            Debug.Log(menuTabs[j].navigation.selectOnLeft + " " + menuTabs[j].navigation.selectOnRight);
+
             menuTabs[j].transform.localPosition =  tabsAnchors[i];
             newNav.selectOnLeft = menuTabs[j].navigation.selectOnLeft;
             newNav.selectOnRight= menuTabs[j].navigation.selectOnRight;

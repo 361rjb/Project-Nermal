@@ -62,7 +62,7 @@ public class BulletGameobjectScript : MonoBehaviour
         }
         currentIndex = 0;
         bulletEnabled = true;
-        Debug.Log("Enabled");
+
         if(thisBulletComponent != null)
         {
             thisRigidBody.velocity = Vector2.zero;

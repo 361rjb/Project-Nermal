@@ -6,8 +6,8 @@ using UnityEngine.EventSystems;
 
 public class LogEventScript : MonoBehaviour, ISelectHandler
 {
-    [SerializeField]
-    Text logText;
+    
+    public Text logText;
     
     public Selectable buttonScript;
 
@@ -15,6 +15,8 @@ public class LogEventScript : MonoBehaviour, ISelectHandler
 
     string title;
     string textbox;
+
+    public Image sprite;
 
     public void SetTitle(string titleIn)
     {

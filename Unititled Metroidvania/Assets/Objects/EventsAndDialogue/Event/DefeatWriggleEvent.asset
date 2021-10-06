@@ -39,3 +39,5 @@ MonoBehaviour:
   eventName: DefeatWriggleEvent
   canOccurAgain: 0
   isBoss: 0
+  logTitle: Encounter With Wriggle
+  loggedText: Beat that hoes ass
