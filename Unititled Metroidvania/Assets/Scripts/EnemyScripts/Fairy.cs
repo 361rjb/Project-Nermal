@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class Fairy : EnemyBase
 {
-    [SerializeField]
+    [SerializeField, Tooltip("")]
     float playerDistance = 5;
     [SerializeField]
     float keepAwayDistance = 3;
-    [SerializeField]
-    float chaseDistance = 10;
+    //[SerializeField]
+    //float chaseDistance = 10;
     bool chasing;
 
     Transform player;
@@ -61,9 +61,9 @@ public class Fairy : EnemyBase
         {
             targetDiff = Vector2.zero;
         }
-        if ((diff.magnitude > keepAwayDistance && diff.magnitude < playerDistance) )
+        if (diff.magnitude > keepAwayDistance && diff.magnitude < playerDistance)
         {
-            Debug.Log("chase");
+            //Debug.Log("chase " + diff.magnitude);
             chasing = true;
 
             if(path != null)
@@ -79,9 +79,9 @@ public class Fairy : EnemyBase
                     path = AIPathMaker.Instance.GetPath(pos, playerPos);
                     if(path != null)
                     {
+                        
                         pathIndex = path.Count - 1;
 
-                        Debug.Log("NEw PAth created");
                         target.x = path[pathIndex-1].x;
                         target.y = path[pathIndex-1].y;
                     }
@@ -97,8 +97,9 @@ public class Fairy : EnemyBase
                 path = AIPathMaker.Instance.GetPath(pos, playerPos);
                 if (path != null)
                 {
+                    Debug.Log("PATH ID " + pathIndex);
+                    
                     pathIndex = path.Count - 1;
-                    Debug.Log("NEw PAth");
                     target.x = path[pathIndex-1].x;
                     target.y = path[pathIndex-1].y;
                 }
@@ -121,7 +122,7 @@ public class Fairy : EnemyBase
             thisRB.velocity = Vector3.Lerp(thisRB.velocity, Vector2.zero, Time.deltaTime);
         }
 
-        if(diff.magnitude < attackDistance&& ! attacking)
+        if(diff.magnitude < attackDistance && ! attacking && !chasing)
         {
             thisPattern.StartPattern();
             attacking = true;
@@ -131,6 +132,7 @@ public class Fairy : EnemyBase
         {
             if(thisPattern.CheckPatternComplete())
             {
+                Debug.Log("FAIRY PATTERN COMPLETE");
                 thisPattern.DisablePattern();
 
                 attacking = false;
