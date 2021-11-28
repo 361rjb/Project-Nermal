@@ -1138,6 +1138,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: f164a0be4e7136c41b200543f0bc68d2, type: 2}
   - {fileID: 11400000, guid: 64b5fe3cfd4a0d4478fce1f2e375e6f0, type: 2}
   - {fileID: 11400000, guid: c2cf1f067bd5d344181e97e92bc2f896, type: 2}
+  - {fileID: 11400000, guid: 5914bda93b9149143bc3bc4f8773bad0, type: 2}
   inLogs: 0
   logButton: {fileID: 762807678}
 --- !u!1 &403357474
@@ -1272,7 +1273,6 @@ MonoBehaviour:
   abilityTitle: {fileID: 1031826122}
   abilityDescription: {fileID: 1880278672}
   playerAbilities: []
-  unlockedPlayerAbilities: []
 --- !u!1 &559668073
 GameObject:
   m_ObjectHideFlags: 0
