@@ -439,7 +439,7 @@ GameObject:
   - component: {fileID: 110499118}
   - component: {fileID: 110499117}
   m_Layer: 5
-  m_Name: Image
+  m_Name: CharacterAbilityDescription
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1139,6 +1139,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 64b5fe3cfd4a0d4478fce1f2e375e6f0, type: 2}
   - {fileID: 11400000, guid: c2cf1f067bd5d344181e97e92bc2f896, type: 2}
   - {fileID: 11400000, guid: 5914bda93b9149143bc3bc4f8773bad0, type: 2}
+  - {fileID: 11400000, guid: 689e5e90b56cecd43bf475661ad7567a, type: 2}
   inLogs: 0
   logButton: {fileID: 762807678}
 --- !u!1 &403357474
@@ -1242,10 +1243,10 @@ RectTransform:
   m_Children:
   - {fileID: 110499116}
   - {fileID: 2058339893}
-  - {fileID: 1605714491}
-  - {fileID: 1841915858}
   - {fileID: 1335416295}
   - {fileID: 565848225}
+  - {fileID: 1605714491}
+  - {fileID: 1841915858}
   m_Father: {fileID: 2035479185}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1266,13 +1267,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c532e2d034ace4040b48792c705fb1bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  eventSystem: {fileID: 1627005582}
   abilitySlot:
   - {fileID: 2058339896}
   - {fileID: 1335416296}
   - {fileID: 565848226}
   abilityTitle: {fileID: 1031826122}
   abilityDescription: {fileID: 1880278672}
-  playerAbilities: []
+  abilityArea: {fileID: 1605714494}
+  abilityIconPrefab: {fileID: 0}
+  logSpawnPos: {x: 0, y: 0}
+  heightIncrement: 0
+  minY: 0
+  maxY: 0
+  playerAbilities:
+  - {fileID: 4095285480886681428, guid: 181b99a17b2d08d438ee6964442e107c, type: 3}
+  - {fileID: 4095285480886681428, guid: ac33301b70f4cc14a849378867892d2c, type: 3}
 --- !u!1 &559668073
 GameObject:
   m_ObjectHideFlags: 0
@@ -1367,7 +1377,7 @@ GameObject:
   - component: {fileID: 565848227}
   - component: {fileID: 565848226}
   m_Layer: 5
-  m_Name: Image (3)
+  m_Name: Slot3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1385,7 +1395,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 521603347}
-  m_RootOrder: 5
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2485,7 +2495,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: New Text
+  m_Text: Desciption Here
 --- !u!222 &1031826123
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2949,7 +2959,7 @@ GameObject:
   - component: {fileID: 1335416297}
   - component: {fileID: 1335416296}
   m_Layer: 5
-  m_Name: Image (2)
+  m_Name: Slot2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2967,7 +2977,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 521603347}
-  m_RootOrder: 4
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -3654,6 +3664,7 @@ MonoBehaviour:
   savingImage: {fileID: 1719677506}
   eventSystem: {fileID: 1627005582}
   logSystem: {fileID: 371960021}
+  abilitySystem: {fileID: 0}
   dialogueBox: {fileID: 415233506}
   characterName: {fileID: 37810389}
   dialogue: {fileID: 1505184896}
@@ -3715,8 +3726,9 @@ GameObject:
   - component: {fileID: 1605714491}
   - component: {fileID: 1605714493}
   - component: {fileID: 1605714492}
+  - component: {fileID: 1605714494}
   m_Layer: 5
-  m_Name: Image (4)
+  m_Name: AbilitiesBackdrop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3734,7 +3746,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 521603347}
-  m_RootOrder: 2
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -3778,6 +3790,46 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1605714490}
   m_CullTransparentMesh: 0
+--- !u!114 &1605714494
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1605714490}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -234403039, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 4
+    m_SelectOnUp: {fileID: 810136138}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 2058339896}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 1605714492}
 --- !u!1 &1620217102
 GameObject:
   m_ObjectHideFlags: 0
@@ -4333,7 +4385,7 @@ GameObject:
   - component: {fileID: 1841915860}
   - component: {fileID: 1841915859}
   m_Layer: 5
-  m_Name: Image (5)
+  m_Name: AbilityTitle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4352,7 +4404,7 @@ RectTransform:
   m_Children:
   - {fileID: 1880278671}
   m_Father: {fileID: 521603347}
-  m_RootOrder: 3
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -4466,7 +4518,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: New Text
+  m_Text: "Basic Shot\t\t\t\t\t\tWriggle"
 --- !u!222 &1880278673
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4545,9 +4597,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Map
-
-'
+  m_Text: Map
 --- !u!222 &1933432281
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5085,7 +5135,7 @@ GameObject:
   - component: {fileID: 2058339894}
   - component: {fileID: 2058339896}
   m_Layer: 5
-  m_Name: Image (1)
+  m_Name: Slot1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

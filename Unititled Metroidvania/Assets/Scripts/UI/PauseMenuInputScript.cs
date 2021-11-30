@@ -22,6 +22,8 @@ public class PauseMenuInputScript : MonoBehaviour
     EventSystem eventSystem;
     [SerializeField]
     LogUIScript logSystem;
+    [SerializeField]
+    AbilityUIScript abilitySystem;
 
     [SerializeField]
     GameObject dialogueBox;
@@ -260,9 +262,14 @@ public class PauseMenuInputScript : MonoBehaviour
                         inDialogue = false;
                         dialogueBox.SetActive(false);
                         if (!currentEvent.canOccurAgain)
-
                         {
                             GameManagerScript.Instance.occuredEvents.Add(currentEvent.eventName);
+                        }
+                        //Unlock ability
+                        if (currentEvent.abilityToUnlock != null)
+                        {
+                            // Call add ability from AbilityUIScript
+                            abilitySystem.UnlockAbilty(currentEvent.abilityToUnlock);
                         }
                     }
                     else
@@ -291,6 +298,12 @@ public class PauseMenuInputScript : MonoBehaviour
 
                     {
                         GameManagerScript.Instance.occuredEvents.Add(currentEvent.eventName);
+                    }
+                    //Unlock ability
+                    if (currentEvent.abilityToUnlock != null)
+                    {
+                        // Call add ability from AbilityUIScript
+                        abilitySystem.UnlockAbilty(currentEvent.abilityToUnlock);
                     }
 
                 }

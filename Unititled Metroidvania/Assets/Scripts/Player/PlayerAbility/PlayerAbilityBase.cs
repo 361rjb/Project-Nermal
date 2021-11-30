@@ -5,9 +5,14 @@ using UnityEngine;
 public class PlayerAbilityBase : MonoBehaviour
 {
 
+    public string title = "TITLE IS NULL";
+    public string description = "DESCRIPTION IS NULL";
+
     protected Vector2 direction = new Vector2();
     protected float lastInput, input;
     protected float radAngle, degAngle;
+
+    public EventScriptableObject eventUnlocksFrom;
 
     protected virtual void Start()
     {

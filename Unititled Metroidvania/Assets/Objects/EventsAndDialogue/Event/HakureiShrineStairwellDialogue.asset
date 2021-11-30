@@ -10,36 +10,26 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7d340d217c76482499d06b3a643d0e4b, type: 3}
-  m_Name: DefeatWriggleEvent
+  m_Name: HakureiShrineStairwellDialogue
   m_EditorClassIdentifier: 
   dialogueEvents:
   - characterName: Reimu
     fontSize: 11
     isPlayer: 1
-    dialogueString: That'll show you!!
+    dialogueString: "That rock over on the right looks\n breakable."
     characterImage: {fileID: 0}
     clip: {fileID: 0}
     gameobjectNameThatPlaysClip: 
   - characterName: Reimu
-    fontSize: 10
+    fontSize: 12
     isPlayer: 1
-    dialogueString: <I>The town is just a little further ahead, I might be able to
-      get some info from Kosuzu's book store.</I>
+    dialogueString: "I should find something to break \nit with."
     characterImage: {fileID: 0}
     clip: {fileID: 0}
     gameobjectNameThatPlaysClip: 
-  - characterName: Reimu
-    fontSize: 10
-    isPlayer: 1
-    dialogueString: <I>It's not just the fairies running wild, the youkai are starting
-      to as well...</I>
-    characterImage: {fileID: 0}
-    clip: {fileID: 0}
-    gameobjectNameThatPlaysClip: 
-  eventName: DefeatWriggleEvent
+  eventName: HakureiShrineStairwellDialogue
   canOccurAgain: 0
   isBoss: 0
-  logTitle: Encounter With Wriggle
-  loggedText: Beat that hoes ass
-  abilityToUnlock: {fileID: 4095285480886681428, guid: 181b99a17b2d08d438ee6964442e107c,
-    type: 3}
+  logTitle: Breakable Wall at the Hakurei Shrine Stairwell
+  loggedText: There was a rock that looks like it can break if I hit it hard enough
+    at the Stairwell to Hakurei Shrine. I should find something to hit it with.

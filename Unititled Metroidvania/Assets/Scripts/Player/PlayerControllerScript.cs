@@ -106,6 +106,7 @@ public class PlayerControllerScript : MonoBehaviour
             GetInput();
             GroundCheck();
             CeilingCheck();
+            //Ability Update
             playerAbilityController.AbilityUpdate(Time.deltaTime, lastAbilityInput, abilityInput, xInputAlt, yInputAlt);
         }
         if(thisRigidBody2D.velocity.magnitude > 40)
@@ -195,6 +196,7 @@ public class PlayerControllerScript : MonoBehaviour
         lastAbilityInput = abilityInput;
         abilityInput = Input.GetAxisRaw("Ability");
 
+        //CHANGE THIS TO MOUSE INPUT
         xInputAlt = Input.GetAxis("HorizontalAlt");
         yInputAlt = Input.GetAxis("VerticalAlt");
     }

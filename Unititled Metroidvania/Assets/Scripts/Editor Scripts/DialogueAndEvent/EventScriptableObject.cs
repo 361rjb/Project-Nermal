@@ -21,5 +21,5 @@ public class EventScriptableObject : ScriptableObject
     [TextArea]
     public string loggedText;
 
-
+    public GameObject abilityToUnlock;
 }

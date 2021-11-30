@@ -30,7 +30,7 @@ public class KeyItem : Interactable
         CheckReoccur();
     }
 
-    // Update is called once per frame
+    // Interact with the key item
     public override void OnInteractEvent()
     {
         base.OnInteractEvent(); 
