@@ -93,6 +93,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dee897435eab07742a54476b2e77bfd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  title: TITLE IS NULL
+  description: DESCRIPTION IS NULL
+  eventUnlocksFrom: {fileID: 11400000, guid: d0370d55229df9a42b901d956200faa7, type: 2}
   bulletSpawner: {fileID: -4010080826396618413}
 --- !u!114 &-4010080826396618413
 MonoBehaviour:

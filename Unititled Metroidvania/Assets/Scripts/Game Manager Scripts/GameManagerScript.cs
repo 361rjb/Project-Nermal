@@ -43,6 +43,9 @@ public class GameManagerScript : MonoBehaviour
 
     public List<KeyItemState> keyItemStates = new List<KeyItemState>();
 
+
+    public string[] abilityEquiped = { "-1", "-1", "-1" }; // if -1 slot is locked
+
     // Start is called before the first frame update
     void Start()
     {
@@ -107,6 +110,7 @@ public class GameManagerScript : MonoBehaviour
             occuredEvents = new List<string>();
             playerStartPos = Vector2.zero;
             currentMaxHealth = 6;
+            
             keyItemStates = new List<KeyItemState>();
             foreach (string s in keyItems)
             {
@@ -121,6 +125,7 @@ public class GameManagerScript : MonoBehaviour
             playerStartPos = thisSave.lastSavePoint.location;
             occuredEvents = thisSave.eventsTriggered;
             currentMaxHealth = thisSave.currentMaxHealth;
+            abilityEquiped = thisSave.abilityEquiped;
             keyItemStates = new List<KeyItemState>();
             foreach (KeyItemState s in thisSave.keyItems)
             {

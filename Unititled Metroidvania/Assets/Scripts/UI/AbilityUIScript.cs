@@ -22,7 +22,7 @@ public class AbilityUIScript : MonoBehaviour
     [SerializeField]
     Text abilityDescription;
     [SerializeField]
-    Selectable abilityArea;
+    Transform abilityArea;
 
     GameObject selectedAbilityGO;
 
@@ -43,6 +43,7 @@ public class AbilityUIScript : MonoBehaviour
     float minY, maxY;
 
     int currentSelectedAbility = 0;
+    int currentSelectedSlot = 0;
 
     [SerializeField]
     List<GameObject> playerAbilities = new List<GameObject>();
@@ -54,6 +55,7 @@ public class AbilityUIScript : MonoBehaviour
 
     private void Start()
     {
+
         prevIcon = null;
         abilityController = GameObject.FindObjectOfType<PlayerAbilityController>();
         foreach(GameObject ability in playerAbilities)
@@ -63,10 +65,24 @@ public class AbilityUIScript : MonoBehaviour
             if(GameManagerScript.Instance.occuredEvents.Contains( abilityScript.eventUnlocksFrom.eventName ))
             {
                 UnlockAbilty(ability);
+
+                //equip abilites
+                for (int i = 0; i < GameManagerScript.Instance.abilityEquiped.Length; i++)
+                {
+                    string s = GameManagerScript.Instance.abilityEquiped[i];
+                    if (s != "-1")
+                    {
+                        abilityController.abilitySlots[i] = abilityScript;
+                        GameObject abilityGO = (GameObject)Instantiate(ability);
+
+                    }
+                }
             }
         }
-
+       
+        selectedAbilityGO = null;
         currentSelectedAbility = 0;
+        UpdateDisplay();
 
     }
 
@@ -83,6 +99,12 @@ public class AbilityUIScript : MonoBehaviour
                 { selectedAbility = false; }
                 inAbilites = false;
             }
+            if (eventSystem.currentSelectedGameObject != selectedAbilityGO)
+            {
+                selectedAbilityGO = eventSystem.currentSelectedGameObject;
+
+                UpdateDisplay();
+            }
         }
     }
 
@@ -91,8 +113,6 @@ public class AbilityUIScript : MonoBehaviour
         lastCancelInput = cancelInput;
         cancelInput = Input.GetAxisRaw("Cancel");
 
-        lastYInput = yInput;
-        yInput = Input.GetAxisRaw("Vertical");
     }
 
 
@@ -106,36 +126,35 @@ public class AbilityUIScript : MonoBehaviour
         newAbility.transform.localPosition = currentSpawn;
         unlockedPlayerAbilities.Add(iconScript);
 
-        //LogEventScript eventScript = newLog.GetComponent<LogEventScript>();
-        //eventScript.SetTitle(e.logTitle);
-        //eventScript.SetTextbox(e.loggedText, textBox);
-        //loggedEvents.Add(eventScript);
         iconScript.ability = abilityScript;
         if (prevIcon)
         {
-            prevIcon.SetUp(iconScript.buttonScript);
-            iconScript.SetDown(iconScript.buttonScript);
+            prevIcon.SetDown(iconScript.buttonScript);
+            iconScript.SetUp(iconScript.buttonScript);
         }
         prevIcon = iconScript;
-        currentSpawn.y += heightIncrement;
+        currentSpawn.y -= heightIncrement;
         iconScript.sprite.enabled = false;
         iconScript.title.enabled = false;
+        selectedAbilityGO = newAbility;
+        UpdateDisplay();
     }
 
 
     public void SetAbility(int slot)
     {
-
+        currentSelectedSlot = slot;
+        EnterAbilityScroll();
     }
 
-    public void EnterAbilityScroll()
+    void EnterAbilityScroll()
     {
         if (abilitiesInMenu.Count > 0)
         {
             eventSystem.SetSelectedGameObject(abilitiesInMenu[currentSelectedAbility]);
+            inAbilites = true;
         }
        // selectedEventGO = eventSystem.currentSelectedGameObject;
-        inAbilites = true;
        // UpdateDisplay();
     }
 
@@ -143,7 +162,7 @@ public class AbilityUIScript : MonoBehaviour
     {
         abilityTitle.text = ability.title;
         abilityDescription.text = ability.description;
-        eventSystem.SetSelectedGameObject(abilitySlot[0].gameObject);
+      //  eventSystem.SetSelectedGameObject(abilitySlot[0].gameObject);
     }
     void UpdateDisplay()
     {
@@ -164,7 +183,7 @@ public class AbilityUIScript : MonoBehaviour
                     unlockedPlayerAbilities[j].sprite.enabled = true;
                     unlockedPlayerAbilities[j].title.enabled = true;
                 }
-                currentSpawn.y += heightIncrement;
+                currentSpawn.y -= heightIncrement;
 
             }
         }

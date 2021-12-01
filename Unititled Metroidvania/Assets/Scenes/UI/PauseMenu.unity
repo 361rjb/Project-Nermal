@@ -1274,10 +1274,11 @@ MonoBehaviour:
   - {fileID: 565848226}
   abilityTitle: {fileID: 1031826122}
   abilityDescription: {fileID: 1880278672}
-  abilityArea: {fileID: 1605714494}
-  abilityIconPrefab: {fileID: 0}
-  logSpawnPos: {x: 0, y: 0}
-  heightIncrement: 0
+  abilityArea: {fileID: 1605714491}
+  abilityIconPrefab: {fileID: 6110943357993177211, guid: 5fd5433afe0f7894589e1a92ec581d38,
+    type: 3}
+  logSpawnPos: {x: 0, y: 25}
+  heightIncrement: 30
   minY: 0
   maxY: 0
   playerAbilities:
@@ -1411,7 +1412,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 565848224}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -234403039, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Script: {fileID: 1392445389, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
@@ -1442,6 +1443,11 @@ MonoBehaviour:
     m_DisabledTrigger: Disabled
   m_Interactable: 1
   m_TargetGraphic: {fileID: 565848227}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!114 &565848227
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1969,7 +1975,7 @@ MonoBehaviour:
   m_Navigation:
     m_Mode: 4
     m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
+    m_SelectOnDown: {fileID: 2058339896}
     m_SelectOnLeft: {fileID: 123993089}
     m_SelectOnRight: {fileID: 2092256656}
   m_Transition: 1
@@ -2993,7 +2999,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1335416294}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -234403039, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Script: {fileID: 1392445389, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
@@ -3024,6 +3030,11 @@ MonoBehaviour:
     m_DisabledTrigger: Disabled
   m_Interactable: 1
   m_TargetGraphic: {fileID: 1335416297}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!114 &1335416297
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3664,7 +3675,7 @@ MonoBehaviour:
   savingImage: {fileID: 1719677506}
   eventSystem: {fileID: 1627005582}
   logSystem: {fileID: 371960021}
-  abilitySystem: {fileID: 0}
+  abilitySystem: {fileID: 521603348}
   dialogueBox: {fileID: 415233506}
   characterName: {fileID: 37810389}
   dialogue: {fileID: 1505184896}
@@ -3726,7 +3737,6 @@ GameObject:
   - component: {fileID: 1605714491}
   - component: {fileID: 1605714493}
   - component: {fileID: 1605714492}
-  - component: {fileID: 1605714494}
   m_Layer: 5
   m_Name: AbilitiesBackdrop
   m_TagString: Untagged
@@ -3790,46 +3800,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1605714490}
   m_CullTransparentMesh: 0
---- !u!114 &1605714494
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1605714490}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -234403039, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Navigation:
-    m_Mode: 4
-    m_SelectOnUp: {fileID: 810136138}
-    m_SelectOnDown: {fileID: 0}
-    m_SelectOnLeft: {fileID: 2058339896}
-    m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
-  m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
-    m_ColorMultiplier: 1
-    m_FadeDuration: 0.1
-  m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
-  m_AnimationTriggers:
-    m_NormalTrigger: Normal
-    m_HighlightedTrigger: Highlighted
-    m_PressedTrigger: Pressed
-    m_SelectedTrigger: Selected
-    m_DisabledTrigger: Disabled
-  m_Interactable: 1
-  m_TargetGraphic: {fileID: 1605714492}
 --- !u!1 &1620217102
 GameObject:
   m_ObjectHideFlags: 0
@@ -5206,7 +5176,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2058339892}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -234403039, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Script: {fileID: 1392445389, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
@@ -5218,9 +5188,9 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_HighlightedColor: {r: 1, g: 0.7122642, b: 0.7122642, a: 1}
+    m_PressedColor: {r: 0.9339623, g: 0.22467959, b: 0.22467959, a: 1}
+    m_SelectedColor: {r: 1, g: 0.740566, b: 0.740566, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -5237,6 +5207,22 @@ MonoBehaviour:
     m_DisabledTrigger: Disabled
   m_Interactable: 1
   m_TargetGraphic: {fileID: 2058339894}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 521603348}
+        m_MethodName: SetAbility
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!1 &2092256654
 GameObject:
   m_ObjectHideFlags: 0

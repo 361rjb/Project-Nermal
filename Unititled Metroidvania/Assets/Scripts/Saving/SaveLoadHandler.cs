@@ -10,7 +10,7 @@ public class PlayerSave
 
     //location
     public IdolSavePoint lastSavePoint;
-    
+
     //unimplemented
     public int currency;
 
@@ -20,6 +20,8 @@ public class PlayerSave
     public List<KeyItemState> keyItems;
 
     public List<string> eventsTriggered;
+
+    public string[] abilityEquiped = {"-1", "-1", "-1"}; // if -1 slot is locked
 }
 
 public class SaveLoadHandler
@@ -37,6 +39,7 @@ public class SaveLoadHandler
         newSave.eventsTriggered = GameManagerScript.Instance.occuredEvents;
         newSave.currentMaxHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerControllerScript>().currentMaxHealth;
         newSave.keyItems = new List<KeyItemState>();
+        newSave.abilityEquiped = GameManagerScript.Instance.abilityEquiped;
         foreach (KeyItemState s in GameManagerScript.Instance.keyItemStates)
         {
             newSave.keyItems.Add(s);
