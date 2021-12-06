@@ -13,6 +13,7 @@ public class PlayerAbilityBase : MonoBehaviour
     protected float radAngle, degAngle;
 
     public EventScriptableObject eventUnlocksFrom;
+    public Sprite abilityIcon;
 
     protected virtual void Start()
     {

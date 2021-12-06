@@ -4,28 +4,30 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class AbilityUiIcon : MonoBehaviour, ISelectHandler
+public class AbilityUiIcon : MonoBehaviour
 {
 
     public Text title;
 
-    public PlayerAbilityBase ability;
+    public PlayerAbilityBase abilityScript;
+    public GameObject abilityGO;
 
     AbilityUIScript abilityUI;
 
-    public Selectable buttonScript;
+    public Button buttonScript;
 
     public Image sprite;
 
     // Start is called before the first frame update
     void Start()
     {
-        abilityUI = GameObject.FindObjectOfType<AbilityUIScript>();   
+        abilityUI = GameObject.FindObjectOfType<AbilityUIScript>();
     }
 
-    public void OnSelect(BaseEventData eventData)
+
+    public void SetAbility()
     {
-        abilityUI.SelectAbility(ability);
+        abilityUI.SelectAbility(this);
     }
 
     public void SetUp(Selectable selectable)

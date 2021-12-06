@@ -17,6 +17,7 @@ public class Boss : MonoBehaviour
    public int currentHealth;
 
    protected Transform player;
+    PlayerControllerScript playerScript;
     protected Rigidbody2D thisRB;
     [SerializeField]
     float xSpeed;
@@ -29,6 +30,7 @@ public class Boss : MonoBehaviour
     {
         currentHealth = maxHealth;
         player = GameObject.FindGameObjectWithTag("Player").transform;
+        playerScript = player.GetComponent< PlayerControllerScript >();
         thisRB = GetComponent<Rigidbody2D>();
         active = false;
 
@@ -168,7 +170,7 @@ public class Boss : MonoBehaviour
     {
         if(collision.tag == "PlayerAttack")
         {
-            currentHealth -= 10;
+            currentHealth -= playerScript.currentAttackDamage;
         }
         
             

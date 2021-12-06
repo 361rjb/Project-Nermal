@@ -66,6 +66,8 @@ public class PlayerControllerScript : MonoBehaviour
     public int health;
     public int currentMaxHealth = 6;
 
+    public int currentAttackDamage = 10;
+
     public Vector2 lastGroundedPosition;
 
     PlayerCamera thisCamera;

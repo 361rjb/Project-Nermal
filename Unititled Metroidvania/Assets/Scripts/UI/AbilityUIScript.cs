@@ -14,6 +14,7 @@ public class AbilityUIScript : MonoBehaviour
     //Ability Slots
     [SerializeField]
     List<Selectable> abilitySlot = new List<Selectable>();
+    GameObject[] abilityEquiped = { null, null, null};
     string secondSlotUnlock;
     string thirdSlotUnlock;
 
@@ -28,8 +29,6 @@ public class AbilityUIScript : MonoBehaviour
 
     float cancelInput = 0;
     float lastCancelInput = 0;
-    float yInput = 0;
-    float lastYInput = 0;
 
     [SerializeField]
     GameObject abilityIconPrefab;
@@ -94,9 +93,9 @@ public class AbilityUIScript : MonoBehaviour
             GetInput();
             if (cancelInput == 1.0f && lastCancelInput != 1.0f)
             {
-                eventSystem.SetSelectedGameObject(abilityArea.gameObject);
-                if(selectedAbility) // NEED A WAY TO ENTER SELECTED ABILITY INTO SLOT AS WELL AS WHEN LEAVING THE MENU DESELECTING IT AS WELL
-                { selectedAbility = false; }
+                eventSystem.SetSelectedGameObject(abilitySlot[currentSelectedSlot].gameObject);
+               // if(selectedAbility) // NEED A WAY TO ENTER SELECTED ABILITY INTO SLOT AS WELL AS WHEN LEAVING THE MENU DESELECTING IT AS WELL
+               // { selectedAbility = false; }
                 inAbilites = false;
             }
             if (eventSystem.currentSelectedGameObject != selectedAbilityGO)
@@ -125,8 +124,8 @@ public class AbilityUIScript : MonoBehaviour
         newAbility.name = abilityScript.title + "_ability";
         newAbility.transform.localPosition = currentSpawn;
         unlockedPlayerAbilities.Add(iconScript);
-
-        iconScript.ability = abilityScript;
+        abilitiesInMenu.Add(newAbility);
+        iconScript.abilityScript = abilityScript;
         if (prevIcon)
         {
             prevIcon.SetDown(iconScript.buttonScript);
@@ -154,15 +153,52 @@ public class AbilityUIScript : MonoBehaviour
             eventSystem.SetSelectedGameObject(abilitiesInMenu[currentSelectedAbility]);
             inAbilites = true;
         }
+        else
+        {
+            currentSelectedSlot = -1;
+        }
        // selectedEventGO = eventSystem.currentSelectedGameObject;
        // UpdateDisplay();
     }
 
-    public void SelectAbility(PlayerAbilityBase ability)
+    public void SelectAbility(AbilityUiIcon ability)
     {
-        abilityTitle.text = ability.title;
-        abilityDescription.text = ability.description;
-      //  eventSystem.SetSelectedGameObject(abilitySlot[0].gameObject);
+
+        //Not working as intended there is another list with the abilities in PlayerAbilityController
+        if(abilityEquiped[currentSelectedAbility] != null)
+        {
+
+            //Delete The ability if it is currently equiped aka unequip
+            //{
+            PlayerAbilityBase abilityEquipedScript = abilityEquiped[currentSelectedAbility].GetComponent<PlayerAbilityBase>();
+            if (ability.abilityScript.eventUnlocksFrom.eventName == abilityEquipedScript.eventUnlocksFrom.eventName)
+            {
+                abilitySlot[currentSelectedSlot].image.sprite = null;
+                abilityTitle.text = ability.abilityScript.title;
+                abilityDescription.text = ability.abilityScript.description;
+                eventSystem.SetSelectedGameObject(abilitySlot[currentSelectedSlot].gameObject);
+
+                inAbilites = false;
+                Destroy(abilityEquiped[currentSelectedAbility]);
+                abilityController.abilitySlots[currentSelectedAbility] = null;
+                return;
+            }
+            //}
+            
+            Destroy(abilityEquiped[currentSelectedAbility]);
+                abilityController.abilitySlots[currentSelectedAbility] = null;
+
+        }
+        
+        abilityTitle.text = ability.abilityScript.title;
+        abilityDescription.text = ability.abilityScript.description;
+        eventSystem.SetSelectedGameObject(abilitySlot[currentSelectedSlot].gameObject);
+        
+        GameObject newAbility = (GameObject)Instantiate(ability.abilityGO, abilityController.transform);
+        abilityEquiped[currentSelectedAbility] = newAbility;
+        abilityController.abilitySlots[currentSelectedAbility] = ability.abilityScript;
+        inAbilites = false;
+
     }
     void UpdateDisplay()
     {
