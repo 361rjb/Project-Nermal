@@ -13,7 +13,7 @@ public class BulletPatternScript : MonoBehaviour
 
     
     public bool patternOn = false;
-    List<List<BulletContainer>> bulletObjectPool;
+    List<List<BulletContainer>> bulletObjectPool = new List<List<BulletContainer>>();
 
     //Spawning bullets
     int currentSpawner = 0;
@@ -73,7 +73,7 @@ public class BulletPatternScript : MonoBehaviour
     {
         SceneManager.SetActiveScene(gameObject.scene);
         spawnerList = thisPattern.bulletSpawners;
-        bulletObjectPool = new List<List<BulletContainer>>();
+        //bulletObjectPool = new List<List<BulletContainer>>();
         int spawnerIndex = 0;
         foreach (SpawnerObject spawner in spawnerList)
         {
@@ -316,5 +316,10 @@ public class BulletPatternScript : MonoBehaviour
 
 
         }
+    }
+
+    public void OnDestroy()
+    {
+        ResetAll();
     }
 }

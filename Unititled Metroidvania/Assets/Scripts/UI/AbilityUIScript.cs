@@ -72,7 +72,10 @@ public class AbilityUIScript : MonoBehaviour
                     if (s != "-1")
                     {
                         abilityController.abilitySlots[i] = abilityScript;
-                        GameObject abilityGO = (GameObject)Instantiate(ability);
+                        GameObject abilityGO = (GameObject)Instantiate(ability, abilityController.transform);
+                        abilityEquiped[i] = abilityGO;
+                        abilitySlot[i].image.sprite = abilityScript.abilityIcon;
+
 
                     }
                 }
@@ -114,13 +117,14 @@ public class AbilityUIScript : MonoBehaviour
 
     }
 
-
+    //Setting prefab patternOn to true, bullet pool of instance not being made
     public void UnlockAbilty(GameObject ability)
     {
         PlayerAbilityBase abilityScript = ability.GetComponent<PlayerAbilityBase>();
         //Add new icon to abiltiy menu
         GameObject newAbility = (GameObject)Instantiate(abilityIconPrefab, abilityArea.transform);
         AbilityUiIcon iconScript = newAbility.GetComponent<AbilityUiIcon>();
+        iconScript.abilityGO = ability;
         newAbility.name = abilityScript.title + "_ability";
         newAbility.transform.localPosition = currentSpawn;
         unlockedPlayerAbilities.Add(iconScript);
@@ -174,8 +178,8 @@ public class AbilityUIScript : MonoBehaviour
             if (ability.abilityScript.eventUnlocksFrom.eventName == abilityEquipedScript.eventUnlocksFrom.eventName)
             {
                 abilitySlot[currentSelectedSlot].image.sprite = null;
-                abilityTitle.text = ability.abilityScript.title;
-                abilityDescription.text = ability.abilityScript.description;
+                abilityTitle.text = "";
+                abilityDescription.text = "";
                 eventSystem.SetSelectedGameObject(abilitySlot[currentSelectedSlot].gameObject);
 
                 inAbilites = false;
@@ -192,11 +196,13 @@ public class AbilityUIScript : MonoBehaviour
         
         abilityTitle.text = ability.abilityScript.title;
         abilityDescription.text = ability.abilityScript.description;
+        abilitySlot[currentSelectedSlot].image.sprite = ability.abilityScript.abilityIcon;
         eventSystem.SetSelectedGameObject(abilitySlot[currentSelectedSlot].gameObject);
         
         GameObject newAbility = (GameObject)Instantiate(ability.abilityGO, abilityController.transform);
         abilityEquiped[currentSelectedAbility] = newAbility;
-        abilityController.abilitySlots[currentSelectedAbility] = ability.abilityScript;
+        PlayerAbilityBase pab = newAbility.GetComponent<PlayerAbilityBase>();
+        abilityController.abilitySlots[currentSelectedAbility] = pab;
         inAbilites = false;
 
     }

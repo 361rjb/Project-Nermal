@@ -22,7 +22,6 @@ public class PlayerAbilityController : MonoBehaviour
     Vector2 newPosition = new Vector2(0, 0);
 
 
-
     //Update called from player:
     public void AbilityUpdate(float dt, float lastInput, float input, float xAlt, float yAlt)
     {
