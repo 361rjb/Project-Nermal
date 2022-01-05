@@ -16,6 +16,8 @@ public class PlayerSave
 
     public int currentMaxHealth;
 
+    public int collectedHealthContainers;
+
     // Abilities
     public List<KeyItemState> keyItems;
 

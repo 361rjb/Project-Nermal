@@ -24,9 +24,13 @@ public class PauseMenuInputScript : MonoBehaviour
     LogUIScript logSystem;
     [SerializeField]
     AbilityUIScript abilitySystem;
+    [SerializeField]
+    StatusEquipmentUIScript statusSystem;
 
     [SerializeField]
     GameObject dialogueBox;
+    [SerializeField]
+    GameObject healthContainer;
 
     [SerializeField]
     Text characterName;
@@ -95,7 +99,7 @@ public class PauseMenuInputScript : MonoBehaviour
 
     List<Image> healthIcons = new List<Image>();
 
-    int healthIndex = 0;
+    public int healthIndex = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -110,16 +114,28 @@ public class PauseMenuInputScript : MonoBehaviour
         characterNamePos = characterName.GetComponent<RectTransform>();
         dialoguePos = dialogue.GetComponent<RectTransform>();
         imagePos = characterImage.GetComponent<RectTransform>();
-        Vector2 spawnPos = new Vector2(-200, 130);
+        Vector2 spawnPos = new Vector2(0, 0);
+        bool overHalf = playerController.currentMaxHealth > (playerController.totalMaxHealth / 2);
+        float total = overHalf ? 210.0f : 105.0f;
+        float xIncrease = total / (float)(playerController.currentMaxHealth / 2);
+        Vector3 newScale = new Vector3((xIncrease / 35f), (xIncrease / 35f), 1.0f);
 
-        for(int i = 0; i < ((float)playerController.currentMaxHealth)/2; i++)
+        for (int i = 0; i < ((float)playerController.currentMaxHealth)/2; i++)
         {
-            GameObject healthIcon = (GameObject)Instantiate(healthPrefab, dialogueBox.transform.parent);
+            GameObject healthIcon = (GameObject)Instantiate(healthPrefab, healthContainer.transform);
+            spawnPos.x = xIncrease * ((i+1) % (playerController.totalMaxHealth / 4));
+            spawnPos.y = (playerController.totalMaxHealth/4) - i > 0 ? 0 : -xIncrease;
+
             healthIcon.transform.localPosition = spawnPos;
-            spawnPos.x += 35;
+
+
+
+            healthIcon.transform.localScale = newScale;
             healthIcons.Add(healthIcon.GetComponent<Image>());
+            
         }
         healthIndex = playerController.currentMaxHealth;
+        
 
     }
 
@@ -142,6 +158,7 @@ public class PauseMenuInputScript : MonoBehaviour
         if(inPause && !logSystem.inLogs && (cancelInput == 1.0f && lastCancelInput != 1.0f && pauseInput != 1.0f))
         {
             inPause = false;
+
         }
 
 
@@ -156,7 +173,9 @@ public class PauseMenuInputScript : MonoBehaviour
             {
                 Time.timeScale = 0.0f;
                 pauseMenu.SetActive(true);
-                
+                healthContainer.SetActive(false);
+
+
             }
             else if (inDialogue)
             {
@@ -175,6 +194,7 @@ public class PauseMenuInputScript : MonoBehaviour
             pauseMenu.SetActive(false);
 
             playerController.pausedGame = false;
+            healthContainer.SetActive(true);
         }
 
     }
@@ -264,6 +284,7 @@ public class PauseMenuInputScript : MonoBehaviour
                         if (!currentEvent.canOccurAgain)
                         {
                             GameManagerScript.Instance.occuredEvents.Add(currentEvent.eventName);
+                            statusSystem.UnlockItem(currentEvent.eventName);
                         }
                         //Unlock ability
                         if (currentEvent.abilityToUnlock != null)
@@ -295,9 +316,9 @@ public class PauseMenuInputScript : MonoBehaviour
                     dialogueBox.SetActive(false);
 
                     if (!currentEvent.canOccurAgain)
-
                     {
                         GameManagerScript.Instance.occuredEvents.Add(currentEvent.eventName);
+                        statusSystem.UnlockItem(currentEvent.eventName);
                     }
                     //Unlock ability
                     if (currentEvent.abilityToUnlock != null)
@@ -334,6 +355,44 @@ public class PauseMenuInputScript : MonoBehaviour
     public void PlayerTakeDamage(int amount)
     {
         StartCoroutine(TickHealth  (amount, true));
+    }
+
+    public void UpdateHealthIcons()
+    {
+        int difference = (playerController.currentMaxHealth / 2) - healthIcons.Count;
+
+        Vector2 spawnPos = new Vector2(0, 0);
+        bool overHalf = playerController.currentMaxHealth > (playerController.totalMaxHealth / 2);
+        float total = overHalf ? 210.0f : 105.0f;
+        float xIncrease = total / (float)(playerController.currentMaxHealth / 2);
+        Vector3 newScale = new Vector3((xIncrease / 35f), (xIncrease / 35f), 1.0f);
+
+        for (int i = 0; i < ((float)playerController.currentMaxHealth) / 2; i++)
+        {
+
+            GameObject healthIcon;
+            
+            if(i+1 > healthIcons.Count)
+            {
+                healthIcon = (GameObject)Instantiate(healthPrefab, healthContainer.transform);
+                healthIcons.Add(healthIcon.GetComponent<Image>());
+                healthIcons[i].enabled = false;
+            }
+            else
+            {
+                healthIcon = healthIcons[i].gameObject;
+            }
+            spawnPos.x = xIncrease * ((i + 1) % (playerController.totalMaxHealth / 4));
+            spawnPos.y = (playerController.totalMaxHealth / 4) - i > 0 ? 0 : -xIncrease;
+
+            healthIcon.transform.localPosition = spawnPos;
+
+            healthIcon.transform.localScale = newScale;
+
+        }
+       // healthIndex = playerController.currentMaxHealth;
+
+
     }
 
     public void PlayerHeal(int amount)
@@ -391,10 +450,39 @@ public class PauseMenuInputScript : MonoBehaviour
         Debug.Log("HealthIndex " + healthIndex);
     }
 
+    public void UpdateHealthTotal()
+    {
 
-//**********************************************************
-//Buttons Scripts
-//********************************************************** 
+        //if current health is greater than the ammount of healthicons
+        //spawn new health icon and chenge the position of the other ones
+        Vector2 spawnPos = new Vector2(0, 0);
+        bool overHalf = playerController.currentMaxHealth > (playerController.totalMaxHealth / 2);
+        float total = overHalf ? 210.0f : 105.0f;
+        float xIncrease = total / (float)(playerController.currentMaxHealth / 2);
+        Vector3 newScale = new Vector3((xIncrease / 35f), (xIncrease / 35f), 1.0f);
+
+        for (int i = 0; i < ((float)playerController.currentMaxHealth) / 2; i++)
+        {
+            GameObject healthIcon = (GameObject)Instantiate(healthPrefab, healthContainer.transform);
+            spawnPos.x = xIncrease * ((i + 1) % (playerController.totalMaxHealth / 4));
+            spawnPos.y = (playerController.totalMaxHealth / 4) - i > 0 ? 0 : -xIncrease;
+
+            healthIcon.transform.localPosition = spawnPos;
+
+
+
+            healthIcon.transform.localScale = newScale;
+            healthIcons.Add(healthIcon.GetComponent<Image>());
+
+        }
+        healthIndex = playerController.currentMaxHealth;
+
+    }
+
+
+    //**********************************************************
+    //Buttons Scripts
+    //********************************************************** 
 
 
     public void OpenTab(int tabIndex)

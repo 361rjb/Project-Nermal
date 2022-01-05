@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(Collider2D))]
 public class Interactable : MonoBehaviour
 {
-    PlayerControllerScript playerController;
+    protected PlayerControllerScript playerController;
     protected virtual void Start()
     {
         playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerControllerScript>();

@@ -65,6 +65,8 @@ public class PlayerControllerScript : MonoBehaviour
 
     public int health;
     public int currentMaxHealth = 6;
+    public int totalMaxHealth = 40;
+    
 
     public int currentAttackDamage = 10;
 
@@ -85,6 +87,7 @@ public class PlayerControllerScript : MonoBehaviour
         thisAnimator = GetComponent<Animator>();
         levelTransScript = GameObject.Find("LevelTransition").GetComponent<LevelTransition>();
         yInteract.SetActive(false);
+        currentMaxHealth = GameManagerScript.Instance.currentMaxHealth;
         health = GameManagerScript.Instance.currentMaxHealth;
     }
 
@@ -136,9 +139,25 @@ public class PlayerControllerScript : MonoBehaviour
         }
         Debug.Log(amount);
         health = Mathf.Clamp(health + amount, 0, currentMaxHealth);
+        PauseMenuInputScript.Instance.UpdateHealthIcons();        
         PauseMenuInputScript.Instance.PlayerHeal(amount);
     }
 
+    public void IncreaseMaxHealth()
+    {
+        currentMaxHealth += 2;
+        currentMaxHealth = Mathf.Clamp(currentMaxHealth, 0, totalMaxHealth);
+        GameManagerScript.Instance.currentMaxHealth = currentMaxHealth;
+    }
+    public void CollectHealthContainer()
+    {
+        GameManagerScript.Instance.collectedHealthContainers++;
+        if(GameManagerScript.Instance.collectedHealthContainers%4 == 0)
+        {
+            IncreaseMaxHealth();
+        }
+            HealPlayer(-1);
+    }
 
     void PlayerReload()
     {

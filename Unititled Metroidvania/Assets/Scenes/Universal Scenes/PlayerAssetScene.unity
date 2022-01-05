@@ -296,5 +296,10 @@ PrefabInstance:
       propertyPath: groundLayer.m_Bits
       value: 2304
       objectReference: {fileID: 0}
+    - target: {fileID: 5745429507884484985, guid: c6019c0d9b9cb294aaa0c9a26693c59d,
+        type: 3}
+      propertyPath: currentMaxHealth
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c6019c0d9b9cb294aaa0c9a26693c59d, type: 3}

@@ -35,6 +35,7 @@ public class GameManagerScript : MonoBehaviour
     //Loaded Variables
     public List<string> occuredEvents = new List<string>();
     public int currentMaxHealth;
+    public int collectedHealthContainers;
 
     public int gameIndex;
 
@@ -100,8 +101,8 @@ public class GameManagerScript : MonoBehaviour
         {
             SceneManager.UnloadSceneAsync(mainMenu);
         }
-        SceneManager.LoadScene(testPauseUI, LoadSceneMode.Additive);
         SceneManager.LoadScene(playerScene, LoadSceneMode.Additive);
+        SceneManager.LoadScene(testPauseUI, LoadSceneMode.Additive);
        PlayerSave thisSave = SaveLoadHandler.LoadGame(gameIndex);
         if (thisSave == null)
         {
@@ -110,7 +111,8 @@ public class GameManagerScript : MonoBehaviour
             occuredEvents = new List<string>();
             playerStartPos = Vector2.zero;
             currentMaxHealth = 6;
-            
+            collectedHealthContainers = 0;
+
             keyItemStates = new List<KeyItemState>();
             foreach (string s in keyItems)
             {
@@ -125,6 +127,7 @@ public class GameManagerScript : MonoBehaviour
             playerStartPos = thisSave.lastSavePoint.location;
             occuredEvents = thisSave.eventsTriggered;
             currentMaxHealth = thisSave.currentMaxHealth;
+            collectedHealthContainers = thisSave.collectedHealthContainers;
             abilityEquiped = thisSave.abilityEquiped;
             keyItemStates = new List<KeyItemState>();
             foreach (KeyItemState s in thisSave.keyItems)
