@@ -43,6 +43,11 @@ public class StatusEquipmentUIScript : MonoBehaviour
             equipmentDictionary.Add(item.thisItemEvent.eventName, item);
         }
         LoadHealth();
+        float et = GameManagerScript.Instance.elapsedTime;
+        float hours = Mathf.Floor(et / 120);
+        float minutes = Mathf.Floor(et / 60);
+        float seconds = Mathf.RoundToInt(et % 60);
+        timeDisplay.text = (hours + ":" + minutes+ ":"+seconds);
     }
 
 
@@ -58,9 +63,20 @@ public class StatusEquipmentUIScript : MonoBehaviour
     //only show each orb current max health 
     //
 
+    public void EnterStatus()
+    {
+        LoadHealth();
+        float et = GameManagerScript.Instance.elapsedTime;
+        float hours = Mathf.Floor(et / 120);
+        float minutes = Mathf.Floor(et / 60);
+        float seconds = Mathf.RoundToInt(et % 60);
+        timeDisplay.text = (hours + ":" + minutes + ":" + seconds);
+    }
+
 
     public void LoadHealth()
     {
+        int difference = (playerController.currentMaxHealth / 2) - healthIcons.Count;
         spawnPos = new Vector2(0, 0);
         bool overHalf = playerController.currentMaxHealth > (playerController.totalMaxHealth / 2);
         float total = overHalf ? 210.0f : 105.0f;
@@ -69,7 +85,17 @@ public class StatusEquipmentUIScript : MonoBehaviour
 
         for (int i = 0; i < ((float)playerController.currentMaxHealth) / 2; i++)
         {
-            GameObject healthIcon = (GameObject)Instantiate(healthPrefab, healthBackdrop.transform);
+            GameObject healthIcon;
+
+            if (i + 1 > healthIcons.Count)
+            {
+                healthIcon = (GameObject)Instantiate(healthPrefab, healthBackdrop.transform);
+                healthIcons.Add(healthIcon.GetComponent<Image>());
+            }
+            else
+            {
+                healthIcon = healthIcons[i].gameObject;
+            }
             spawnPos.x = xIncrease * ((i + 1) % (playerController.totalMaxHealth / 4)) ;
             spawnPos.y = (playerController.totalMaxHealth / 4) - i > 0 ? 0 : -xIncrease;
             spawnPos.x -= 70f;
@@ -77,7 +103,6 @@ public class StatusEquipmentUIScript : MonoBehaviour
             healthIcon.transform.localPosition = spawnPos;
 
             healthIcon.transform.localScale = newScale;
-            healthIcons.Add(healthIcon.GetComponent<Image>());
 
         }
     }

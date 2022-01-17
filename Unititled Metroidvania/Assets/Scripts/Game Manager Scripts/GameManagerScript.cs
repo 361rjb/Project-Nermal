@@ -36,6 +36,7 @@ public class GameManagerScript : MonoBehaviour
     public List<string> occuredEvents = new List<string>();
     public int currentMaxHealth;
     public int collectedHealthContainers;
+    public float elapsedTime = 0;
 
     public int gameIndex;
 
@@ -112,6 +113,7 @@ public class GameManagerScript : MonoBehaviour
             playerStartPos = Vector2.zero;
             currentMaxHealth = 6;
             collectedHealthContainers = 0;
+            elapsedTime = 0;
 
             keyItemStates = new List<KeyItemState>();
             foreach (string s in keyItems)
@@ -129,6 +131,7 @@ public class GameManagerScript : MonoBehaviour
             currentMaxHealth = thisSave.currentMaxHealth;
             collectedHealthContainers = thisSave.collectedHealthContainers;
             abilityEquiped = thisSave.abilityEquiped;
+            elapsedTime = thisSave.elapsedTime;
             keyItemStates = new List<KeyItemState>();
             foreach (KeyItemState s in thisSave.keyItems)
             {

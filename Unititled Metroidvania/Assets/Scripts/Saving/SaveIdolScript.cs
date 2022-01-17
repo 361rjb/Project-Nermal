@@ -18,6 +18,8 @@ public class SaveIdolScript : Interactable
     public override void OnInteractEvent()
     {
         base.OnInteractEvent();
+        if (uiHandler.showSave)
+            return;
         Debug.Log("Interact to save");
         uiHandler.showSave = true;
         GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerControllerScript>().HealPlayer(-1);

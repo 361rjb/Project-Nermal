@@ -1,25 +1,19 @@
 fileFormatVersion: 2
-guid: 898503ba382361742b295c45d41e093f
+guid: ec523b8cabb904c41ad646be6830d101
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -4090610988138207077
-    second: ForestBackground_3
+      213: -6238458002291398434
+    second: ForestBackgroundWall_0
   - first:
-      213: -7837304224531345742
-    second: ForestBackground_0
+      213: -6702656546450912060
+    second: ForestBackgroundWall_1
   - first:
-      213: 645844004607327926
-    second: ForestBackground_1
+      213: -8331653318208997853
+    second: ForestBackgroundWall_2
   - first:
-      213: 7640805383781350219
-    second: ForestBackground_2
-  - first:
-      213: 3870646215385968915
-    second: ForestBackground_4
-  - first:
-      213: 398312181575793778
-    second: ForestBackground_5
+      213: 2749340796489418513
+    second: ForestBackgroundWall_3
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -102,10 +96,52 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ForestBackground_4
+      name: ForestBackgroundWall_0
       rect:
         serializedVersion: 2
-        x: 1
+        x: 0
+        y: 100
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e914eb01cba8386499114ab1a8231f1c
+      internalID: -6238458002291398434
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ForestBackgroundWall_1
+      rect:
+        serializedVersion: 2
+        x: 100
+        y: 100
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 63409192a0db5bf41ac85ecb0ca55d8a
+      internalID: -6702656546450912060
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ForestBackgroundWall_2
+      rect:
+        serializedVersion: 2
+        x: 0
         y: 0
         width: 100
         height: 100
@@ -116,14 +152,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a61005f78140fc54cba305bb518b1318
-      internalID: 3870646215385968915
+      spriteID: 0fdf3249feca16d4fa54cce19668ed69
+      internalID: -8331653318208997853
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ForestBackground_0
+      name: ForestBackgroundWall_3
       rect:
         serializedVersion: 2
         x: 100
@@ -137,92 +173,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 803ab67007d41224d9df9d6e1d04239c
-      internalID: -7837304224531345742
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ForestBackground_1
-      rect:
-        serializedVersion: 2
-        x: 200
-        y: 0
-        width: 100
-        height: 100
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8b70f9bc60afad74c8516d19909325c3
-      internalID: 645844004607327926
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ForestBackground_2
-      rect:
-        serializedVersion: 2
-        x: 300
-        y: 0
-        width: 100
-        height: 100
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9341e8cc55189e34e8487c5a9aa73b4a
-      internalID: 7640805383781350219
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ForestBackground_3
-      rect:
-        serializedVersion: 2
-        x: 400
-        y: 0
-        width: 100
-        height: 100
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ecf7033b96c80df4eaae71368cc85a67
-      internalID: -4090610988138207077
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ForestBackground_5
-      rect:
-        serializedVersion: 2
-        x: 499
-        y: 0
-        width: 100
-        height: 100
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 6fa190578a02d334596f38c698fa2964
-      internalID: 398312181575793778
+      spriteID: 98a85d3d000eb144a85040111069626d
+      internalID: 2749340796489418513
       vertices: []
       indices: 
       edges: []
@@ -230,7 +182,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: f653aac8f685adf43a2d1241a9410be5
+    spriteID: 91b5d358ae4a0f547879187616375623
     internalID: 0
     vertices: []
     indices: 

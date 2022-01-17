@@ -18,6 +18,8 @@ public class PlayerSave
 
     public int collectedHealthContainers;
 
+    public float elapsedTime;
+
     // Abilities
     public List<KeyItemState> keyItems;
 
@@ -42,6 +44,10 @@ public class SaveLoadHandler
         newSave.currentMaxHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerControllerScript>().currentMaxHealth;
         newSave.keyItems = new List<KeyItemState>();
         newSave.abilityEquiped = GameManagerScript.Instance.abilityEquiped;
+
+        GameManagerScript.Instance.elapsedTime = PauseMenuInputScript.Instance.elapsedTime;
+        newSave.elapsedTime = GameManagerScript.Instance.elapsedTime;
+        newSave.collectedHealthContainers = GameManagerScript.Instance.collectedHealthContainers;
         foreach (KeyItemState s in GameManagerScript.Instance.keyItemStates)
         {
             newSave.keyItems.Add(s);

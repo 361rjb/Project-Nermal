@@ -135,8 +135,10 @@ public class PlayerControllerScript : MonoBehaviour
     {
         if(amount == -1)
         {
-            amount = currentMaxHealth - health + 1;
+            amount = currentMaxHealth - health;
         }
+        if (amount == 0)
+            return;
         Debug.Log(amount);
         health = Mathf.Clamp(health + amount, 0, currentMaxHealth);
         PauseMenuInputScript.Instance.UpdateHealthIcons();        

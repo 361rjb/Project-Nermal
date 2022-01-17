@@ -100,6 +100,8 @@ public class PauseMenuInputScript : MonoBehaviour
     List<Image> healthIcons = new List<Image>();
 
     public int healthIndex = 0;
+    [HideInInspector]
+    public float elapsedTime = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -135,7 +137,9 @@ public class PauseMenuInputScript : MonoBehaviour
             
         }
         healthIndex = playerController.currentMaxHealth;
-        
+        elapsedTime = GameManagerScript.Instance.elapsedTime;
+
+
 
     }
 
@@ -174,7 +178,8 @@ public class PauseMenuInputScript : MonoBehaviour
                 Time.timeScale = 0.0f;
                 pauseMenu.SetActive(true);
                 healthContainer.SetActive(false);
-
+                GameManagerScript.Instance.elapsedTime = elapsedTime;
+                statusSystem.EnterStatus();
 
             }
             else if (inDialogue)
@@ -195,8 +200,8 @@ public class PauseMenuInputScript : MonoBehaviour
 
             playerController.pausedGame = false;
             healthContainer.SetActive(true);
+            elapsedTime += Time.deltaTime;
         }
-
     }
 
     void GetInput()
@@ -402,51 +407,57 @@ public class PauseMenuInputScript : MonoBehaviour
 
     IEnumerator TickHealth(int amount, bool isDamage)
     {
-        for(float i = 0; i < amount; i++)
-        {
-            if(isDamage && healthIndex - i > 0)
-            {
-                int index = Mathf.Clamp(Mathf.CeilToInt(((float)healthIndex - i) / 2f), 0, healthIcons.Count);
-                Debug.Log("Index " + index);
-                if ((healthIndex - i) % 2 == 0 )
-                {
-                    healthIcons[index-1].sprite = healthImageDamaged;
-                }
-                else 
-                {
-                    healthIcons[index-1].enabled = false;
-                }
 
-            }
-            else if (i + healthIndex <= healthIcons.Count*2)
-            {
-
-                int index = Mathf.Clamp(Mathf.CeilToInt(((float)healthIndex + i) / 2f), 0, healthIcons.Count);
-                if ((healthIndex + i) % 2f == 1)
-                {
-                    healthIcons[index-1].enabled = true;
-                    healthIcons[index-1].sprite = healthImageDamaged;
-
-                }
-                else
-                {
-                    healthIcons[index-1].enabled = true;
-                    healthIcons[index-1].sprite = healthImage;
-                }
-            }
-
-            yield return new WaitForSecondsRealtime(0.3f);
-        }
 
         if (isDamage)
         {
-            healthIndex = Mathf.Clamp(healthIndex - amount , 0, playerController.currentMaxHealth);
+            for (float i = 0; i < amount; i++)
+            {
+
+                if (healthIndex - i > 0)
+                {
+                    int index = Mathf.Clamp(Mathf.CeilToInt(((float)healthIndex - i) / 2f), 0, healthIcons.Count);
+                    Debug.Log("Index " + index);
+                    if ((healthIndex - i) % 2 == 0)
+                    {
+                        healthIcons[index - 1].sprite = healthImageDamaged;
+                    }
+                    else
+                    {
+                        healthIcons[index - 1].enabled = false;
+                    }
+
+                    yield return new WaitForSecondsRealtime(0.3f);
+
+                }
+            }
+            healthIndex = Mathf.Clamp(healthIndex - amount, 0, playerController.currentMaxHealth);
         }
         else
         {
+            for (float i = 0; i <= amount; i++)
+            {
+                if (i + healthIndex <= healthIcons.Count * 2)
+                {
+                    int index = Mathf.Clamp(Mathf.CeilToInt(((float)healthIndex + i) / 2f), 0, healthIcons.Count);
+                    if ((healthIndex + i) % 2f == 1)
+                    {
+                        healthIcons[index - 1].enabled = true;
+                        healthIcons[index - 1].sprite = healthImageDamaged;
 
-            healthIndex = Mathf.Clamp(healthIndex + amount , 0, playerController.currentMaxHealth);
+                    }
+                    else
+                    {
+                        healthIcons[index - 1].enabled = true;
+                        healthIcons[index - 1].sprite = healthImage;
+                    }
+                    yield return new WaitForSecondsRealtime(0.3f);
+                }
+            }
+            healthIndex = Mathf.Clamp(healthIndex + amount, 0, playerController.currentMaxHealth);
+
         }
+        
         Debug.Log("HealthIndex " + healthIndex);
     }
 
