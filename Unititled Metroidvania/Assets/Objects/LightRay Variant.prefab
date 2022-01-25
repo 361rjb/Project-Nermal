@@ -10,7 +10,7 @@ PrefabInstance:
     - target: {fileID: 5238383714404090826, guid: 1c2f7f6c8fe315344b051f108ec4baaf,
         type: 3}
       propertyPath: m_Name
-      value: LightRay
+      value: LightRay Variant
       objectReference: {fileID: 0}
     - target: {fileID: 5238383714404090824, guid: 1c2f7f6c8fe315344b051f108ec4baaf,
         type: 3}
@@ -92,6 +92,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Color.a
       value: 0.25882354
+      objectReference: {fileID: 0}
+    - target: {fileID: 5238383714404090827, guid: 1c2f7f6c8fe315344b051f108ec4baaf,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0.68235296
+      objectReference: {fileID: 0}
+    - target: {fileID: 5238383714404090827, guid: 1c2f7f6c8fe315344b051f108ec4baaf,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.68235296
+      objectReference: {fileID: 0}
+    - target: {fileID: 5238383714404090827, guid: 1c2f7f6c8fe315344b051f108ec4baaf,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0.68235296
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1c2f7f6c8fe315344b051f108ec4baaf, type: 3}
